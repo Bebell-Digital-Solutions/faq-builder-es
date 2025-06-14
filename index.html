@@ -88,9 +88,7 @@
             overflow-y: auto;
         }
         
-        
-        
-         .brand {
+        .brand {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -107,10 +105,6 @@
             font-weight: bold;
             color: #df1783;
         }
-        
-        
-        
-        
         
         /* Editor Panel Styles */
         .editor-section {
@@ -304,6 +298,7 @@
             border-color: #DF1783;
             background: #fdf2f8;
         }
+        
         /* Preview Panel Styles */
         .preview-container {
             border: 1px solid #e2e8f0;
@@ -311,20 +306,6 @@
             padding: 1rem;
             background: white;
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         /* FAQ Widget Styles */
         .faq-widget {
@@ -336,6 +317,7 @@
             margin-bottom: 1rem;
             overflow-x: auto;
         }
+        
         .faq-widget .faq-tab {
             padding: 10px 20px;
             border: none;
@@ -346,10 +328,12 @@
             border-bottom: 2px solid transparent;
             transition: all 0.2s;
         }
+        
         .faq-widget .faq-tab.active {
             border-bottom-color: var(--primary-color, #DF1783);
             color: var(--primary-color, #DF1783);
         }
+        
         .faq-widget .faq-content {
             display: none;
         }
@@ -376,12 +360,16 @@
             align-items: center;
             font-size: var(--font-size, 16px);
         }
-        .faq-widget .faq-question:hover {
+        .faq-widget .faq-question:hover:not(.active) {
             background: #f1f5f9;
         }
         .faq-widget .faq-question.active {
             background: var(--primary-color, #DF1783);
             color: white;
+        }
+        .faq-widget .faq-question.active:hover {
+            background: var(--primary-color, #DF1783) !important;
+            color: white !important;
         }
         .faq-widget .faq-answer {
             padding: var(--spacing, 16px);
@@ -400,58 +388,57 @@
             transform: rotate(180deg);
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-      /* Add this CSS to your existing styles */
-.faq-content {
-    display: none;
-}
+        /* FAQ Cards Style */
+        .faq-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
 
-.faq-content.active {
-    display: block;
-}
+        .faq-card {
+            flex: 1 1 calc(50% - 8px);
+            min-width: 250px;
+        }
 
-/* Ensure FAQ cards are visible */
-.faq-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px; /* Default spacing */
-    padding: 16px; /* Default spacing */
-}
+        .faq-card-answer {
+            color: #6b7280; 
+            font-size: 16px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            white-space: normal;
+            hyphens: auto;
+        }
+        
+        .tab-delete-btn {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            border: none;
+            color: #64748b;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 8px;
+            padding: 0;
+            transition: all 0.2s;
+        }
 
-.faq-card {
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 16px;
-    background-color: white;
-}
+        .tab-delete-btn:hover {
+            background: #e2e8f0;
+            color: #dc2626;
+        }
 
-/* Make sure tab content is visible */
-.faq-content {
-    display: none;
-}
-
-.faq-content.active {
-    display: block;
-}  
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        .tab-container {
+            display: flex;
+            align-items: center;
+            margin-right: 8px;
+        }
         
         /* Modal Styles */
         .modal {
@@ -496,39 +483,6 @@
             color: #6b7280;
         }
         
-        
-        .tab-delete-btn {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #f1f5f9;
-    border: none;
-    color: #64748b;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    margin-left: 8px;
-    padding: 0;
-    transition: all 0.2s;
-}
-
-.tab-delete-btn:hover {
-    background: #e2e8f0;
-    color: #dc2626;
-}
-
-.tab-container {
-    display: flex;
-    align-items: center;
-    margin-right: 8px;
-}
-        
-        
-        
-        
-        
         .code-block {
             background: #1e293b;
             color: #e2e8f0;
@@ -556,6 +510,7 @@
         .copy-btn:hover {
             background: #4b5563;
         }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .main-layout {
@@ -570,7 +525,12 @@
             .customization-sidebar {
                 width: 280px;
             }
+            
+            .faq-card {
+                flex: 1 1 100%;
+            }
         }
+        
         /* Empty State */
         .empty-state {
             text-align: center;
@@ -581,6 +541,7 @@
             margin-bottom: 0.5rem;
             color: #374151;
         }
+        
         /* Overlay */
         .sidebar-overlay {
             display: none;
@@ -596,12 +557,7 @@
             display: block;
         }
         
-        
-        
-        
-        
-        
-         /* Footer Styles */
+        /* Footer Styles */
         .footer {
             background-color: #f8f9fa;
             padding: 20px;
@@ -615,38 +571,24 @@
         .footer p {
             margin: 0;
         }
-        
-        
-       
-       
-       
-       
-       
-       
-       
-       
-        
-        
     </style>
 </head>
-
 
 <body>
     <div class="container">
         <!-- Header -->
         <div class="header">
-
- <div class="brand">
-        <img src="https://bucket.mlcdn.com/a/3336/3336910/images/2a926c37fc929607aeed2f835f3a06e0e9f3cff8.png" alt="VibeCoding Studio Logo" class="brand-logo">
-        <span class="brand-text">Creador de FAQ</span>
-    </div>
-
+            <div class="brand">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/2a926c37fc929607aeed2f835f3a06e0e9f3cff8.png" alt="VibeCoding Studio Logo" class="brand-logo">
+                <span class="brand-text">Creador de FAQ</span>
+            </div>
             <h1></h1>
             <div class="header-buttons">
                 <button class="btn btn-secondary" onclick="toggleCustomization()">🎨 Personalizar</button>
                 <button class="btn btn-primary" onclick="generateCode()">📋 Obtener Código</button>
             </div>
         </div>
+        
         <!-- Main Layout -->
         <div class="main-layout">
             <!-- Editor Panel -->
@@ -671,6 +613,7 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Preview Panel -->
             <div class="panel">
                 <div class="panel-header">
@@ -688,6 +631,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- Customization Sidebar -->
         <div class="sidebar-overlay" onclick="toggleCustomization()"></div>
         <div id="customization-sidebar" class="customization-sidebar">
@@ -714,6 +658,7 @@
                         <input type="color" id="custom-color" value="#DF1783" onchange="updatePrimaryColor(this.value)" style="width: 100%; height: 40px; border: none; border-radius: 6px;">
                     </div>
                 </div>
+                
                 <!-- Typography -->
                 <div class="customization-section">
                     <label>📝 Tipografía</label>
@@ -722,6 +667,7 @@
                         <input type="range" class="slider" id="font-size-slider" min="12" max="24" value="16" oninput="updateFontSize(this.value)">
                     </div>
                 </div>
+                
                 <!-- Display Style -->
                 <div class="customization-section">
                     <label>🔧 Estilo de Visualización</label>
@@ -730,10 +676,11 @@
                             Acordeón
                         </div>
                         <div class="style-option" onclick="setDisplayStyle('card')" data-style="card">
-    Tarjetas
-</div>
+                            Tarjetas
+                        </div>
                     </div>
                 </div>
+                
                 <!-- Spacing -->
                 <div class="customization-section">
                     <label>📏 Espaciado</label>
@@ -742,6 +689,7 @@
                         <input type="range" class="slider" id="spacing-slider" min="8" max="32" value="16" step="4" oninput="updateSpacing(this.value)">
                     </div>
                 </div>
+                
                 <!-- Border & Shape -->
                 <div class="customization-section">
                     <label>🔲 Bordes y Forma</label>
@@ -754,6 +702,7 @@
                         <input type="range" class="slider" id="border-width-slider" min="0" max="4" value="1" step="1" oninput="updateBorderWidth(this.value)">
                     </div>
                 </div>
+                
                 <!-- Reset -->
                 <div class="customization-section">
                     <button class="btn btn-secondary" onclick="resetToDefaults()" style="width: 100%;">
@@ -763,6 +712,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Code Generation Modal -->
     <div id="code-modal" class="modal">
         <div class="modal-content">
@@ -780,6 +730,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Add/Edit FAQ Modal -->
     <div id="faq-modal" class="modal">
         <div class="modal-content">
@@ -802,13 +753,10 @@
         </div>
     </div>
     
-    
-<!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
         <p>All rights reserved <br>Powered with 💖 by Bebell Digital Solutions</p>
     </footer>
-    
-    
 
 <script>
     // Application State
@@ -817,6 +765,8 @@
             { id: 0, name: 'General', faqs: [] }
         ],
         activeTab: 0,
+        activePreviewTab: 0,
+        activeFAQ: null, // { tabIndex: number, faqIndex: number }
         editingFAQ: null,
         settings: {
             primaryColor: '#DF1783',
@@ -827,7 +777,7 @@
             borderWidth: 1
         }
     };
-
+    
     // Initialize Application
     function init() {
         updateTabList();
@@ -837,7 +787,7 @@
         initColorSwatches();
         initDisplayStyleOptions();
     }
-
+    
     // Color Swatch Management
     function initColorSwatches() {
         document.querySelectorAll('.color-swatch').forEach(swatch => {
@@ -848,7 +798,7 @@
             });
         });
     }
-
+    
     // Display Style Options Initialization
     function initDisplayStyleOptions() {
         document.querySelectorAll('.style-option').forEach(option => {
@@ -859,14 +809,14 @@
             });
         });
     }
-
+    
     // Tab Management
     function addTab() {
-        const name = prompt('Enter tab name:');
-        if (name) {
+        const name = prompt('Ingresa el nombre de la pestaña:');
+        if (name && name.trim()) {
             const newTab = {
                 id: Date.now(),
-                name: name,
+                name: name.trim(),
                 faqs: []
             };
             state.tabs.push(newTab);
@@ -874,20 +824,21 @@
             switchTab(newTab.id);
         }
     }
-
+    
     function deleteTab(tabId) {
         if (state.tabs.length <= 1) {
-            alert('You must have at least one tab');
+            alert('Debes tener al menos una pestaña');
             return;
         }
         
-        if (confirm('Are you sure you want to delete this tab and all its questions?')) {
+        if (confirm('¿Estás seguro de que deseas eliminar esta pestaña y todas sus preguntas?')) {
             const tabIndex = state.tabs.findIndex(t => t.id === tabId);
             state.tabs.splice(tabIndex, 1);
             
             // Switch to first tab if we deleted the active one
             if (tabId === state.activeTab) {
                 state.activeTab = state.tabs[0].id;
+                state.activePreviewTab = 0;
             }
             
             updateTabList();
@@ -895,14 +846,28 @@
             updatePreview();
         }
     }
-
+    
+    function renameTab(tabId) {
+        const tab = state.tabs.find(t => t.id === tabId);
+        if (tab) {
+            const newName = prompt('Nuevo nombre de la pestaña:', tab.name);
+            if (newName && newName.trim()) {
+                tab.name = newName.trim();
+                updateTabList();
+                updatePreview();
+            }
+        }
+    }
+    
     function switchTab(tabId) {
         state.activeTab = tabId;
+        state.activePreviewTab = state.tabs.findIndex(t => t.id === tabId);
+        state.activeFAQ = null; // Reset active FAQ when switching tabs
         updateTabList();
         updateFAQItems();
         updatePreview();
     }
-
+    
     function updateTabList() {
         const tabList = document.getElementById('tab-list');
         tabList.innerHTML = '';
@@ -919,187 +884,218 @@
             
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'tab-delete-btn';
-            deleteBtn.innerHTML = '×'; // × symbol
+            deleteBtn.innerHTML = '×';
             deleteBtn.onclick = (e) => {
                 e.stopPropagation();
                 deleteTab(tab.id);
             };
             
             tabContainer.appendChild(button);
-            tabContainer.appendChild(deleteBtn);
+            if (state.tabs.length > 1) {
+                tabContainer.appendChild(deleteBtn);
+            }
             tabList.appendChild(tabContainer);
         });
     }
-
-   // Gestión de FAQ (Preguntas Frecuentes)
-function addFAQItem() {
-    state.editingFAQ = null;
-    document.getElementById('faq-modal-title').textContent = '✏️ Añadir Pregunta';
-    document.getElementById('faq-question-input').value = '';
-    document.getElementById('faq-answer-input').value = '';
-    document.getElementById('faq-modal').style.display = 'block';
-}
-
-function editFAQ(index) {
-    const currentTab = getCurrentTab();
-    const faq = currentTab.faqs[index];
     
-    state.editingFAQ = index;
-    document.getElementById('faq-modal-title').textContent = '✏️ Editar Pregunta';
-    document.getElementById('faq-question-input').value = faq.question;
-    document.getElementById('faq-answer-input').value = faq.answer;
-    document.getElementById('faq-modal').style.display = 'block';
-}
-
-function deleteFAQ(index) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta pregunta frecuente?')) {
+    // FAQ Management
+    function addFAQItem() {
+        state.editingFAQ = null;
+        document.getElementById('faq-modal-title').textContent = '✏️ Añadir Pregunta';
+        document.getElementById('faq-question-input').value = '';
+        document.getElementById('faq-answer-input').value = '';
+        document.getElementById('faq-modal').style.display = 'block';
+    }
+    
+    function editFAQ(index) {
         const currentTab = getCurrentTab();
-        currentTab.faqs.splice(index, 1);
+        const faq = currentTab.faqs[index];
+        
+        state.editingFAQ = index;
+        document.getElementById('faq-modal-title').textContent = '✏️ Editar Pregunta';
+        document.getElementById('faq-question-input').value = faq.question;
+        document.getElementById('faq-answer-input').value = faq.answer;
+        document.getElementById('faq-modal').style.display = 'block';
+    }
+    
+    function deleteFAQ(index) {
+        if (confirm('¿Estás seguro de que deseas eliminar esta pregunta frecuente?')) {
+            const currentTab = getCurrentTab();
+            currentTab.faqs.splice(index, 1);
+            
+            // Reset active FAQ if it was deleted
+            if (state.activeFAQ && state.activeFAQ.faqIndex === index) {
+                state.activeFAQ = null;
+            }
+            
+            updateFAQItems();
+            updatePreview();
+        }
+    }
+    
+    function saveFAQ() {
+        const question = document.getElementById('faq-question-input').value.trim();
+        const answer = document.getElementById('faq-answer-input').value.trim();
+        
+        if (!question || !answer) {
+            alert('Por favor completa tanto la pregunta como la respuesta');
+            return;
+        }
+        
+        const currentTab = getCurrentTab();
+        const faq = { question, answer };
+        
+        if (state.editingFAQ !== null) {
+            currentTab.faqs[state.editingFAQ] = faq;
+        } else {
+            currentTab.faqs.push(faq);
+        }
+        
+        closeFAQModal();
         updateFAQItems();
         updatePreview();
     }
-}
-
-    function saveFAQ() {
-    const question = document.getElementById('faq-question-input').value.trim();
-    const answer = document.getElementById('faq-answer-input').value.trim();
     
-    if (!question || !answer) {
-        alert('Por favor completa tanto la pregunta como la respuesta');
-        return;
+    function closeFAQModal() {
+        document.getElementById('faq-modal').style.display = 'none';
+        state.editingFAQ = null;
     }
-    const currentTab = getCurrentTab();
-    const faq = { question, answer };
-    if (state.editingFAQ !== null) {
-        currentTab.faqs[state.editingFAQ] = faq;
-    } else {
-        currentTab.faqs.push(faq);
-    }
-    closeFAQModal();
-    updateFAQItems();
-    updatePreview();
-}
-
-function closeFAQModal() {
-    document.getElementById('faq-modal').style.display = 'none';
-    state.editingFAQ = null;
-}
-
-function updateFAQItems() {
-    const container = document.getElementById('faq-items');
-    const currentTab = getCurrentTab();
     
-    if (currentTab.faqs.length === 0) {
-        container.innerHTML = '<div class="empty-state"><p>No hay preguntas añadidas aún. Haz clic en "Añadir Pregunta" para comenzar.</p></div>';
-        return;
-    }
-    container.innerHTML = '';
-    currentTab.faqs.forEach((faq, index) => {
-        const item = document.createElement('div');
-        item.className = 'faq-item';
-        item.innerHTML = `
-            <div class="faq-item-header">
-                <div class="faq-item-title">${faq.question}</div>
-                <div class="faq-actions">
-                    <button class="btn-small btn-edit" onclick="editFAQ(${index})">Editar</button>
-                    <button class="btn-small btn-delete" onclick="deleteFAQ(${index})">Eliminar</button>
+    function updateFAQItems() {
+        const container = document.getElementById('faq-items');
+        const currentTab = getCurrentTab();
+        
+        if (currentTab.faqs.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No hay preguntas añadidas aún. Haz clic en "Añadir Pregunta" para comenzar.</p></div>';
+            return;
+        }
+        
+        container.innerHTML = '';
+        currentTab.faqs.forEach((faq, index) => {
+            const item = document.createElement('div');
+            item.className = 'faq-item';
+            item.innerHTML = `
+                <div class="faq-item-header">
+                    <div class="faq-item-title">${escapeHtml(faq.question)}</div>
+                    <div class="faq-actions">
+                        <button class="btn-small btn-edit" onclick="editFAQ(${index})">Editar</button>
+                        <button class="btn-small btn-delete" onclick="deleteFAQ(${index})">Eliminar</button>
+                    </div>
                 </div>
-            </div>
-            <div style="color: #6b7280; font-size: 14px;">${faq.answer}</div>
-        `;
-        container.appendChild(item);
-    });
-}
-
-// Gestión de Vista Previa
-function updatePreview() {
-    const preview = document.getElementById('preview-widget');
-    const allTabs = state.tabs;
+                <div style="color: #6b7280; font-size: 14px;">${escapeHtml(faq.answer)}</div>
+            `;
+            container.appendChild(item);
+        });
+    }
     
-    if (allTabs.every(tab => tab.faqs.length === 0)) {
-        preview.innerHTML = `
-            <div class="empty-state">
-                <h3>No hay elementos en las FAQ</h3>
-                <p>Añade algunas preguntas y respuestas para ver la vista previa</p>
-            </div>
-        `;
+    // Preview Management
+    function updatePreview() {
+        const preview = document.getElementById('preview-widget');
+        const allTabs = state.tabs;
+        
+        if (allTabs.every(tab => tab.faqs.length === 0)) {
+            preview.innerHTML = `
+                <div class="empty-state">
+                    <h3>No hay elementos en las FAQ</h3>
+                    <p>Añade algunas preguntas y respuestas para ver la vista previa</p>
+                </div>
+            `;
             return;
         }
         
         let html = '';
         
-        // Fix: Track active tab using state.activeTab
-        if (allTabs.length > 1) {
+        // Add tabs if multiple sections with content
+        const tabsWithContent = allTabs.filter(tab => tab.faqs.length > 0);
+        if (tabsWithContent.length > 1) {
             html += '<div class="faq-tabs">';
-            allTabs.forEach((tab, index) => {
-                // Fix: Check tab.id against state.activeTab
-                html += `<button class="faq-tab ${tab.id === state.activeTab ? 'active' : ''}" 
-                          onclick="switchPreviewTab(${index})">${tab.name}</button>`;
+            tabsWithContent.forEach((tab, index) => {
+                const isActive = index === state.activePreviewTab;
+                html += `<button class="faq-tab ${isActive ? 'active' : ''}" 
+                          onclick="switchPreviewTab(${index})">${escapeHtml(tab.name)}</button>`;
             });
             html += '</div>';
         }
         
-        allTabs.forEach((tab, tabIndex) => {
-            if (tab.faqs.length > 0) {
-                // Fix: Check tab.id against state.activeTab
-                const isActive = tab.id === state.activeTab;
-                html += `<div class="faq-content ${isActive ? 'active' : ''}" data-tab="${tabIndex}">`;
+        // Add content for each tab
+        tabsWithContent.forEach((tab, tabIndex) => {
+            const isActive = tabIndex === state.activePreviewTab;
+            html += `<div class="faq-content ${isActive ? 'active' : ''}" data-tab="${tabIndex}">`;
+            
+            if (state.settings.displayStyle === 'accordion') {
+                html += '<div class="faq-accordion">';
                 
-                if (state.settings.displayStyle === 'accordion') {
-                    html += '<div class="faq-accordion">';
+                tab.faqs.forEach((faq, faqIndex) => {
+                    const isFAQActive = state.activeFAQ && 
+                                       state.activeFAQ.tabIndex === tabIndex && 
+                                       state.activeFAQ.faqIndex === faqIndex;
                     
-                    tab.faqs.forEach((faq, index) => {
-                        html += `
-                            <button class="faq-question" onclick="togglePreviewFAQ(${tabIndex}, ${index})">
-                                ${faq.question}
-                                <span class="faq-icon">▼</span>
-                            </button>
-                            <div class="faq-answer" data-tab="${tabIndex}" data-faq="${index}">
-                                ${faq.answer}
+                    html += `
+                        <button class="faq-question ${isFAQActive ? 'active' : ''}" 
+                                onclick="togglePreviewFAQ(${tabIndex}, ${faqIndex})"
+                                style="background: ${isFAQActive ? state.settings.primaryColor : '#f8fafc'}; 
+                                       color: ${isFAQActive ? 'white' : '#374151'}; 
+                                       border: none; 
+                                       padding: ${state.settings.spacing}px; 
+                                       width: 100%; 
+                                       text-align: left; 
+                                       cursor: pointer; 
+                                       font-weight: 500; 
+                                       border-bottom: ${state.settings.borderWidth}px solid #e2e8f0; 
+                                       transition: all 0.2s; 
+                                       display: flex; 
+                                       justify-content: space-between; 
+                                       align-items: center; 
+                                       font-size: ${state.settings.fontSize}px;"
+                                onmouseover="if(!this.classList.contains('active')) { this.style.background='#f1f5f9' }"
+                                onmouseout="if(!this.classList.contains('active')) { this.style.background='#f8fafc' }">
+                            ${escapeHtml(faq.question)}
+                            <span class="faq-icon" style="transform: ${isFAQActive ? 'rotate(180deg)' : 'rotate(0deg)'}; color: ${isFAQActive ? 'white' : state.settings.primaryColor};">▼</span>
+                        </button>
+                        <div class="faq-answer ${isFAQActive ? 'active' : ''}" data-tab="${tabIndex}" data-faq="${faqIndex}" 
+                             style="padding: ${state.settings.spacing}px; font-size: ${state.settings.fontSize}px; display: ${isFAQActive ? 'block' : 'none'};">
+                            ${escapeHtml(faq.answer)}
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            } else if (state.settings.displayStyle === 'card') {
+                html += `<div class="faq-cards" style="gap: ${state.settings.spacing}px; padding: ${state.settings.spacing}px;">`;
+                
+                tab.faqs.forEach((faq, faqIndex) => {
+                    html += `
+                        <div class="faq-card" style="border: ${state.settings.borderWidth}px solid #e2e8f0; 
+                                                    border-radius: ${state.settings.borderRadius}px; 
+                                                    padding: ${state.settings.spacing}px; 
+                                                    background: white;
+                                                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h3 class="faq-card-question" style="font-size: ${state.settings.fontSize}px; 
+                                                               margin-bottom: ${state.settings.spacing / 2}px; 
+                                                               color: ${state.settings.primaryColor};">
+                                ${escapeHtml(faq.question)}
+                            </h3>
+                            <div class="faq-card-answer" style="color: #6b7280; font-size: ${state.settings.fontSize}px;">
+                                ${escapeHtml(faq.answer)}
                             </div>
-                        `;
-                    });
-                    
-                    html += '</div>';
-                } else if (state.settings.displayStyle === 'card') {
-                    // Fixed width calculation with proper spacing
-                    html += `<div class="faq-cards" style="display: flex; flex-wrap: wrap; gap: ${state.settings.spacing}px;">`;
-                    
-                    tab.faqs.forEach((faq, index) => {
-                        // Fix: Use proper width calculation
-                        const cardWidth = `calc(50% - ${state.settings.spacing / 2}px)`;
-                        html += `
-                            <div class="faq-card" style="border: ${state.settings.borderWidth}px solid #e2e8f0; 
-                                                        border-radius: ${state.settings.borderRadius}px; 
-                                                        padding: ${state.settings.spacing}px; 
-                                                        width: ${cardWidth};">
-                                <h3 class="faq-card-question" style="font-size: ${state.settings.fontSize}px; 
-                                                                   margin-bottom: ${state.settings.spacing / 2}px;">
-                                    ${faq.question}
-                                </h3>
-                                <div class="faq-card-answer" style="color: #6b7280; 
-                                                                 font-size: ${state.settings.fontSize}px;">
-                                    ${faq.answer}
-                                </div>
-                            </div>
-                        `;
-                    });
-                    
-                    html += '</div>';
-                }
+                        </div>
+                    `;
+                });
+                
                 html += '</div>';
             }
+            
+            html += '</div>';
         });
         
         preview.innerHTML = html;
         updatePreviewStyles();
     }
     
-    
-    
-    
-
     function switchPreviewTab(tabIndex) {
+        state.activePreviewTab = tabIndex;
+        state.activeFAQ = null; // Reset active FAQ when switching tabs
+        
         document.querySelectorAll('.faq-tab').forEach((tab, index) => {
             tab.classList.toggle('active', index === tabIndex);
         });
@@ -1107,23 +1103,51 @@ function updatePreview() {
             content.classList.toggle('active', index === tabIndex);
         });
     }
-
+    
     function togglePreviewFAQ(tabIndex, faqIndex) {
-        const button = event.target;
-        const answer = document.querySelector(`.faq-answer[data-tab="${tabIndex}"][data-faq="${faqIndex}"]`);
+        const isCurrentlyActive = state.activeFAQ && 
+                                 state.activeFAQ.tabIndex === tabIndex && 
+                                 state.activeFAQ.faqIndex === faqIndex;
         
-        const isActive = button.classList.contains('active');
+        // Close all FAQs first
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.classList.remove('active');
+            q.style.background = '#f8fafc';
+            q.style.color = '#374151';
+            const qIcon = q.querySelector('.faq-icon');
+            if (qIcon) {
+                qIcon.style.transform = 'rotate(0deg)';
+                qIcon.style.color = state.settings.primaryColor;
+            }
+        });
+        document.querySelectorAll('.faq-answer').forEach(a => {
+            a.classList.remove('active');
+            a.style.display = 'none';
+        });
         
-        // Close all other FAQs
-        document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
-        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('active'));
-        
-        if (!isActive) {
+        if (!isCurrentlyActive) {
+            // Open the clicked FAQ
+            state.activeFAQ = { tabIndex, faqIndex };
+            
+            const button = event.target.closest('.faq-question');
+            const answer = document.querySelector(`.faq-answer[data-tab="${tabIndex}"][data-faq="${faqIndex}"]`);
+            const icon = button.querySelector('.faq-icon');
+            
             button.classList.add('active');
+            button.style.background = state.settings.primaryColor;
+            button.style.color = 'white';
             answer.classList.add('active');
+            answer.style.display = 'block';
+            if (icon) {
+                icon.style.transform = 'rotate(180deg)';
+                icon.style.color = 'white';
+            }
+        } else {
+            // Close the FAQ
+            state.activeFAQ = null;
         }
     }
-
+    
     function updatePreviewStyles() {
         const preview = document.getElementById('preview-widget');
         const { primaryColor, fontSize, spacing, borderRadius, borderWidth } = state.settings;
@@ -1134,7 +1158,7 @@ function updatePreview() {
         preview.style.setProperty('--border-radius', borderRadius + 'px');
         preview.style.setProperty('--border-width', borderWidth + 'px');
     }
-
+    
     // Customization Functions
     function toggleCustomization() {
         const sidebar = document.getElementById('customization-sidebar');
@@ -1149,42 +1173,43 @@ function updatePreview() {
             overlay.classList.add('active');
         }
     }
-
+    
     function updatePrimaryColor(color) {
         state.settings.primaryColor = color;
         document.getElementById('custom-color').value = color;
-        updatePreviewStyles();
+        updatePreview();
     }
-
+    
     function updateFontSize(size) {
         state.settings.fontSize = parseInt(size);
         document.getElementById('font-size-value').textContent = size;
-        updatePreviewStyles();
+        updatePreview();
     }
-
+    
     function updateSpacing(spacing) {
         state.settings.spacing = parseInt(spacing);
         document.getElementById('spacing-value').textContent = spacing;
-        updatePreviewStyles();
+        updatePreview();
     }
-
+    
     function updateBorderRadius(radius) {
         state.settings.borderRadius = parseInt(radius);
         document.getElementById('border-radius-value').textContent = radius;
-        updatePreviewStyles();
+        updatePreview();
     }
-
+    
     function updateBorderWidth(width) {
         state.settings.borderWidth = parseInt(width);
         document.getElementById('border-width-value').textContent = width;
-        updatePreviewStyles();
-    }
-
-    function setDisplayStyle(style) {
-        state.settings.displayStyle = style;
         updatePreview();
     }
-
+    
+    function setDisplayStyle(style) {
+        state.settings.displayStyle = style;
+        state.activeFAQ = null; // Reset active FAQ when changing display style
+        updatePreview();
+    }
+    
     function resetToDefaults() {
         state.settings = {
             primaryColor: '#DF1783',
@@ -1194,8 +1219,10 @@ function updatePreview() {
             borderRadius: 8,
             borderWidth: 1
         };
+        
+        state.activeFAQ = null;
         updateCustomizationUI();
-        updatePreviewStyles();
+        updatePreview();
         
         // Reset color swatch selection
         document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
@@ -1206,7 +1233,7 @@ function updatePreview() {
             option.classList.toggle('active', option.dataset.style === 'accordion');
         });
     }
-
+    
     function updateCustomizationUI() {
         const { primaryColor, fontSize, spacing, borderRadius, borderWidth, displayStyle } = state.settings;
         
@@ -1219,24 +1246,25 @@ function updatePreview() {
         document.getElementById('border-radius-value').textContent = borderRadius;
         document.getElementById('border-width-slider').value = borderWidth;
         document.getElementById('border-width-value').textContent = borderWidth;
+        
         document.querySelectorAll('.style-option').forEach(option => {
             option.classList.toggle('active', option.dataset.style === displayStyle);
         });
     }
-
+    
     // Code Generation
     function generateCode() {
         const code = generateEmbeddableCode();
         document.getElementById('code-content').textContent = code;
         document.getElementById('code-modal').style.display = 'block';
     }
-
+    
     function generateEmbeddableCode() {
         const { primaryColor, fontSize, spacing, borderRadius, borderWidth, displayStyle } = state.settings;
         const tabsWithFAQs = state.tabs.filter(tab => tab.faqs.length > 0);
         
         if (tabsWithFAQs.length === 0) {
-            return '<!-- No FAQ content to generate -->';
+            return '<!-- No hay contenido FAQ para generar -->';
         }
         
         let html = `<!-- FAQ Widget - Generated by FAQ Builder --> 
@@ -1251,10 +1279,10 @@ function updatePreview() {
                 html += `
         <button class="faq-tab ${index === 0 ? 'active' : ''}" 
                 onclick="switchFAQTab(${index})"
-                style="padding: 10px 20px; border: none; background: none; cursor: pointer; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; ${index === 0 ? `border-bottom-color: ${primaryColor}; color: ${primaryColor};` : ''}"
+                style="padding: 10px 20px; border: none; background: none; cursor: pointer; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; ${index === 0 ? `border-bottom-color: ${primaryColor}; color: ${primaryColor};` : ''}" 
                 onmouseover="this.style.background='#f8fafc'"
                 onmouseout="this.style.background='none'">
-            ${tab.name}
+            ${escapeHtml(tab.name)}
         </button>`;
             });
             
@@ -1265,46 +1293,59 @@ function updatePreview() {
         // Add content for each tab
         tabsWithFAQs.forEach((tab, tabIndex) => {
             html += `
-    <div class="faq-content ${tabIndex === 0 ? 'active' : ''}" data-tab="${tabIndex}" style="display: ${tabIndex === 0 ? 'block' : 'none'};">
-        ${state.settings.displayStyle === 'accordion' ? `
-        <div class="faq-accordion" style="border: ${borderWidth}px solid #e2e8f0; border-radius: ${borderRadius}px; overflow: hidden;">` : `
-        <div class="faq-cards" style="display: flex; flex-wrap: wrap; gap: ${spacing}px;">`}
-        `;
+    <div class="faq-content ${tabIndex === 0 ? 'active' : ''}" data-tab="${tabIndex}" style="display: ${tabIndex === 0 ? 'block' : 'none'};">`;
             
-            tab.faqs.forEach((faq, faqIndex) => {
-                if (state.settings.displayStyle === 'accordion') {
+            if (displayStyle === 'accordion') {
+                html += `
+        <div class="faq-accordion" style="border: ${borderWidth}px solid #e2e8f0; border-radius: ${borderRadius}px; overflow: hidden;">`;
+                
+                tab.faqs.forEach((faq, faqIndex) => {
                     html += `
             <button class="faq-question" 
                     onclick="toggleFAQ(${tabIndex}, ${faqIndex})"
-                    style="background: #f8fafc; border: none; padding: ${spacing}px; width: 100%; text-align: left; cursor: pointer; font-weight: 500; border-bottom: ${borderWidth}px solid #e2e8f0; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: ${fontSize}px;" 
-                    onmouseover="this.style.background='#f1f5f9'; this.querySelector('.faq-icon').style.color='${darkenColor(primaryColor, 20)}'" 
-                    onmouseout="if(!this.classList.contains('active')) { this.style.background='#f8fafc'; this.querySelector('.faq-icon').style.color='${primaryColor}' }">
-                ${faq.question}
-                <span class="faq-icon" style="transition: all 0.2s; color: ${primaryColor};">▼</span>
+                    style="background: #f8fafc; color: #374151; border: none; padding: ${spacing}px; width: 100%; text-align: left; cursor: pointer; font-weight: 500; border-bottom: ${borderWidth}px solid #e2e8f0; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: ${fontSize}px;" 
+                    onmouseover="if(!this.classList.contains('active')) { this.style.background='#f1f5f9' }"
+                    onmouseout="if(!this.classList.contains('active')) { this.style.background='#f8fafc' }">
+                ${escapeHtml(faq.question)}
+                <span class="faq-icon" style="transition: transform 0.2s; color: ${primaryColor};">▼</span>
             </button>
             <div class="faq-answer" data-tab="${tabIndex}" data-faq="${faqIndex}" 
-                 style="padding: ${spacing}px; display: none; background: white; border-bottom: ${borderWidth}px solid #e2e8f0; font-size: ${fontSize}px;">
-                ${faq.answer}
-            </div>
-            `;
-                } else if (state.settings.displayStyle === 'card') {
-                    // Fixed width calculation
+                 style="padding: ${spacing}px; display: none; background: white; border-bottom: ${borderWidth}px solid #e2e8f0; font-size: ${fontSize}px; color: #374151;">
+                ${escapeHtml(faq.answer)}
+            </div>`;
+                });
+                
+                html += `
+        </div>`;
+            } else if (displayStyle === 'card') {
+                html += `
+        <div class="faq-cards" style="display: flex; flex-wrap: wrap; gap: ${spacing}px; padding: ${spacing}px;">`;
+                
+                tab.faqs.forEach((faq, faqIndex) => {
                     html += `
-            <div class="faq-card" style="border: ${borderWidth}px solid #e2e8f0; border-radius: ${borderRadius}px; padding: ${spacing}px; width: calc(50% - ${spacing/2}px);">
-                <h3 class="faq-card-question" style="font-size: ${fontSize}px; margin-bottom: ${spacing/2}px;">${faq.question}</h3>
-                <div class="faq-card-answer" style="color: #6b7280; font-size: ${fontSize}px;">${faq.answer}</div>
-            </div>
-            `;
-                }
-            });
+            <div class="faq-card" style="flex: 1 1 calc(50% - ${spacing/2}px); min-width: 250px; border: ${borderWidth}px solid #e2e8f0; border-radius: ${borderRadius}px; padding: ${spacing}px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <h3 class="faq-card-question" style="font-size: ${fontSize}px; margin-bottom: ${spacing/2}px; color: ${primaryColor}; margin-top: 0;">
+                    ${escapeHtml(faq.question)}
+                </h3>
+                <div class="faq-card-answer" style="color: #6b7280; font-size: ${fontSize}px;">
+                    ${escapeHtml(faq.answer)}
+                </div>
+            </div>`;
+                });
+                
+                html += `
+        </div>`;
+            }
             
             html += `
-        </div>
     </div>`;
         });
+        
         html += `
 </div>
+
 <script>
+// FAQ Widget JavaScript
 function switchFAQTab(tabIndex) {
     document.querySelectorAll('.faq-tab').forEach((tab, index) => {
         if (index === tabIndex) {
@@ -1320,76 +1361,122 @@ function switchFAQTab(tabIndex) {
     document.querySelectorAll('.faq-content').forEach((content, index) => {
         content.style.display = index === tabIndex ? 'block' : 'none';
     });
+    
+    // Close all open FAQs when switching tabs
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.classList.remove('active');
+        q.style.background = '#f8fafc';
+        q.style.color = '#374151';
+    });
+    document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+    document.querySelectorAll('.faq-icon').forEach(icon => icon.style.transform = 'rotate(0deg)');
 }
+
 function toggleFAQ(tabIndex, faqIndex) {
     const button = event.target.closest('.faq-question');
     const answer = document.querySelector(\`.faq-answer[data-tab="\${tabIndex}"][data-faq="\${faqIndex}"]\`);
-
+    const icon = button.querySelector('.faq-icon');
+    
     const isActive = button.classList.contains('active');
-
+    
     // Close all other FAQs
     document.querySelectorAll('.faq-question').forEach(q => {
         q.classList.remove('active');
         q.style.background = '#f8fafc';
-        q.style.color = 'inherit';
-        q.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+        q.style.color = '#374151';
     });
     document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
-
+    document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+    
     if (!isActive) {
         button.classList.add('active');
         button.style.background = '${primaryColor}';
         button.style.color = 'white';
-        button.querySelector('.faq-icon').style.transform = 'rotate(180deg)';
+        icon.style.transform = 'rotate(180deg)';
         answer.style.display = 'block';
     }
 }
-<\\/script>
+<\/script>
 <!-- End FAQ Widget -->`;
+        
         return html;
     }
-
+    
     function copyCode() {
         const code = document.getElementById('code-content').textContent;
         navigator.clipboard.writeText(code).then(() => {
             const btn = document.querySelector('.copy-btn');
             const originalText = btn.textContent;
-            btn.textContent = 'Copied!';
+            btn.textContent = 'Copiado!';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 2000);
+        }).catch(() => {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = code;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const btn = document.querySelector('.copy-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Copiado!';
             setTimeout(() => {
                 btn.textContent = originalText;
             }, 2000);
         });
     }
-
+    
     function closeCodeModal() {
         document.getElementById('code-modal').style.display = 'none';
     }
-
+    
     // Utility Functions
     function getCurrentTab() {
         return state.tabs.find(tab => tab.id === state.activeTab);
     }
-
-    function darkenColor(color, percent) {
-        // Simplified color darkening function
-        // In a real implementation, you would want a proper color manipulation library
-        return color; // Replace with actual darkening logic
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
-
+    
     // Event Listeners
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('modal')) {
             e.target.style.display = 'none';
         }
     });
-
+    
+    // Handle Enter key in inputs
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            if (e.target.id === 'faq-question-input') {
+                document.getElementById('faq-answer-input').focus();
+            } else if (e.target.id === 'faq-answer-input' && e.ctrlKey) {
+                saveFAQ();
+            }
+        }
+        
+        if (e.key === 'Escape') {
+            if (document.getElementById('faq-modal').style.display === 'block') {
+                closeFAQModal();
+            }
+            if (document.getElementById('code-modal').style.display === 'block') {
+                closeCodeModal();
+            }
+            if (document.getElementById('customization-sidebar').classList.contains('open')) {
+                toggleCustomization();
+            }
+        }
+    });
+    
     // Initialize the application
     init();
 </script>
 
-
-
-
-    
 </body>
 </html>
