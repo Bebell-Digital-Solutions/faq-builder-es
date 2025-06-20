@@ -1,1492 +1,1565 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es"> <!-- Added lang attribute and class for dark mode -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ Builder - Create Embeddable FAQ Sections</title>
+
+    <!-- Required Meta Tags -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Primary Meta Tags -->
+    <title>Market Research Hub 🎯 | Plataforma de Estadísticas de Consumo Impulsada por IA</title>
+    <meta name="description" content="Obtenga inteligencia de mercado en tiempo real, análisis del comportamiento del consumidor y evaluación comparativa de la competencia con nuestra plataforma de investigación impulsada por IA. Comience con informes gratuitos de la industria.">
+    <meta name="keywords" content="investigación de mercado, estadísticas del consumidor, análisis competitivo, tendencias de la industria, inteligencia de negocios, análisis con IA">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://bucket.mlcdn.com/a/3336/3336910/images/f221856a81ddf6731e6e4ff738772c8f608f11b8.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://bucket.mlcdn.com/a/3336/3336910/images/f221856a81ddf6731e6e4ff738772c8f608f11b8.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://bucket.mlcdn.com/a/3336/3336910/images/f221856a81ddf6731e6e4ff738772c8f608f11b8.png">
+    <link rel="manifest" href="https://bucket.mlcdn.com/a/3336/3336910/images/f221856a81ddf6731e6e4ff738772c8f608f11b8.png">
+    <link rel="mask-icon" href="https://bucket.mlcdn.com/a/3336/3336910/images/f221856a81ddf6731e6e4ff738772c8f608f11b8.png" color="#3a86ff">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff" id="theme-color-meta"> <!-- Added ID for JS update -->
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marketresearchhub.com/">
+    <meta property="og:title" content="Market Research Hub | Estadísticas de Consumo Impulsadas por IA">
+    <meta property="og:description" content="Obtenga inteligencia de mercado en tiempo real y análisis del comportamiento del consumidor con nuestra plataforma impulsada por IA.">
+    <meta property="og:image" content="https://marketresearchhub.com/images/social-share-1200x630.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@ResearchHub">
+    <meta name="twitter:title" content="Market Research Hub | Estadísticas de Consumo Impulsadas por IA">
+    <meta name="twitter:description" content="Plataforma de inteligencia de mercado en tiempo real y análisis del comportamiento del consumidor.">
+    <meta name="twitter:image" content="https://marketresearchhub.com/images/social-share-1200x630.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Caveat:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    
+    <script>
+      if (window.tailwind) {
+        window.tailwind.config = {
+            darkMode: 'class', // Enabled dark mode
+            theme: {
+                extend: {
+                    colors: {
+                        pink: {
+                            600: '#DF1783',
+                            700: '#C1146E'
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        caveat: ['Caveat', 'cursive'],
+                    }
+                },
+            },
+        };
+      }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
     <style>
-     * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f8fafc;
-            color: #334155;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .header h1 {
-            color: #DF1783;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        .header-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
-            font-size: 14px;
-        }
-        .btn-primary {
-            background: #DF1783;
-            color: white;
-        }
-        .btn-primary:hover {
-            background: #c41572;
-        }
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #475569;
-        }
-        .btn-secondary:hover {
-            background: #cbd5e1;
-        }
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            min-height: 600px;
-        }
-        .panel {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        .panel-header {
-            background: #df1783;
-            padding: 1rem;
-            border-bottom: 1px solid #e2e8f0;
-            font-weight: 600;
-            color: white;
-        }
-        .panel-content {
-            padding: 1rem;
-            height: calc(100% - 60px);
-            overflow-y: auto;
+        :root {
+            --primary: #3a86ff;
+            --primary-dark: #2667cc;
+            --secondary: #8338ec;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
         }
         
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-logo {
-            width: 55px;
-            height: 55px;
-            object-fit: contain;
-        }
-
-        .brand-text {
-            font-size: 1.7em;
-            font-weight: bold;
-            color: #df1783;
-        }
-        
-        /* Editor Panel Styles */
-        .editor-section {
-            margin-bottom: 2rem;
-        }
-        .section-title {
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #1e293b;
-        }
-        .tab-list {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #e2e8f0;
-            overflow-x: auto;
-        }
-        .tab-button {
-            padding: 8px 16px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .tab-button.active {
-            border-bottom-color: #DF1783;
-            color: #DF1783;
-            font-weight: 600;
-        }
-        .tab-button:hover {
-            background: #f8fafc;
-        }
-        .input-group {
-            margin-bottom: 1rem;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #374151;
-        }
-        .input, .textarea {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.2s;
-        }
-        .input:focus, .textarea:focus {
-            outline: none;
-            border-color: #DF1783;
-        }
-        .textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        .faq-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-        .faq-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        .faq-item-title {
-            font-weight: 500;
-            color: #1e293b;
-        }
-        .faq-actions {
-            display: flex;
-            gap: 5px;
-        }
-        .btn-small {
-            padding: 4px 8px;
-            font-size: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-edit {
-            background: #3b82f6;
-            color: white;
-        }
-        .btn-delete {
-            background: #ef4444;
-            color: white;
-        }
-        /* Customization Sidebar */
-        .customization-sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 320px;
-            height: 100vh;
-            background: white;
-            border-right: 1px solid #e2e8f0;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            overflow-y: auto;
-        }
-        .customization-sidebar.open {
-            transform: translateX(0);
-        }
-        .customization-section {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .customization-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #e2e8f0;
-            margin-bottom: 1.5rem;
-        }
-        .customization-content {
-            padding: 0 1rem;
-        }
-        .color-swatch {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .color-swatch.active {
-            border-color: #DF1783;
-            transform: scale(1.1);
-        }
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-top: 0.5rem;
-        }
-        .slider-container {
-            margin: 1rem 0;
-        }
-        .slider {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: #e2e8f0;
-            outline: none;
-            -webkit-appearance: none;
-        }
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #DF1783;
-            cursor: pointer;
-        }
-        .slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #DF1783;
-            cursor: pointer;
-            border: none;
-        }
-        .style-options {
-            display: flex;
-            gap: 10px;
-            margin-top: 0.5rem;
-        }
-        .style-option {
-            flex: 1;
-            padding: 8px;
-            border: 2px solid #e2e8f0;
-            border-radius: 6px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-        }
-        .style-option.active {
-            border-color: #DF1783;
-            background: #fdf2f8;
-        }
-        
-        /* Preview Panel Styles */
-        .preview-container {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1rem;
-            background: white;
-        }
-        
-        /* FAQ Widget Styles */
-        .faq-widget {
-            max-width: 100%;
-        }
-        .faq-widget .faq-tabs {
-            display: flex;
-            border-bottom: 2px solid #e2e8f0;
-            margin-bottom: 1rem;
-            overflow-x: auto;
-        }
-        
-        .faq-widget .faq-tab {
-            padding: 10px 20px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-        
-        .faq-widget .faq-tab.active {
-            border-bottom-color: var(--primary-color, #DF1783);
-            color: var(--primary-color, #DF1783);
-        }
-        
-        .faq-widget .faq-content {
-            display: none;
-        }
-        .faq-widget .faq-content.active {
-            display: block;
-        }
-        .faq-widget .faq-accordion {
-            border: var(--border-width, 1px) solid #e2e8f0;
-            border-radius: var(--border-radius, 8px);
-            overflow: hidden;
-        }
-        .faq-widget .faq-question {
-            background: #f8fafc;
-            border: none;
-            padding: var(--spacing, 16px);
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            font-weight: 500;
-            border-bottom: var(--border-width, 1px) solid #e2e8f0;
-            transition: all 0.2s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: var(--font-size, 16px);
-        }
-        .faq-widget .faq-question:hover:not(.active) {
-            background: #f1f5f9;
-        }
-        .faq-widget .faq-question.active {
-            background: var(--primary-color, #DF1783);
-            color: white;
-        }
-        .faq-widget .faq-question.active:hover {
-            background: var(--primary-color, #DF1783) !important;
-            color: white !important;
-        }
-        .faq-widget .faq-answer {
-            padding: var(--spacing, 16px);
-            display: none;
-            background: white;
-            border-bottom: var(--border-width, 1px) solid #e2e8f0;
-            font-size: var(--font-size, 16px);
-        }
-        .faq-widget .faq-answer.active {
-            display: block;
-        }
-        .faq-widget .faq-icon {
-            transition: transform 0.2s;
-        }
-        .faq-widget .faq-question.active .faq-icon {
-            transform: rotate(180deg);
-        }
-        
-        /* FAQ Cards Style */
-        .faq-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            padding: 16px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .faq-card {
-            flex: 1 1 calc(50% - 8px);
-            min-width: 250px;
-        }
-
-        .faq-card-answer {
-            color: #6b7280; 
-            font-size: 16px;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            white-space: normal;
-            hyphens: auto;
-        }
-        
-        .tab-delete-btn {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #f1f5f9;
-            border: none;
-            color: #64748b;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            margin-left: 8px;
-            padding: 0;
-            transition: all 0.2s;
-        }
-
-        .tab-delete-btn:hover {
-            background: #e2e8f0;
-            color: #dc2626;
-        }
-
-        .tab-container {
-            display: flex;
-            align-items: center;
-            margin-right: 8px;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-        }
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            max-width: 90%;
-            max-height: 90%;
-            overflow: auto;
-            width: 600px;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1e293b;
-        }
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #6b7280;
-        }
-        
-        .code-block {
-            background: #1e293b;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 6px;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 12px;
-            line-height: 1.4;
-            overflow-x: auto;
-            margin: 1rem 0;
-            position: relative;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #374151;
-            color: white;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .copy-btn:hover {
-            background: #4b5563;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-            
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .customization-sidebar {
-                width: 280px;
-            }
-            
-            .faq-card {
-                flex: 1 1 100%;
-            }
-        }
-        
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            color: #6b7280;
-            padding: 2rem;
-        }
-        .empty-state h3 {
-            margin-bottom: 0.5rem;
-            color: #374151;
-        }
-        
-        /* Overlay */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+        .custom-image-widget {
+            position: fixed !important;
+            top: 50px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            right: 0px;
             z-index: 999;
         }
-        .sidebar-overlay.active {
-            display: block;
+        
+        .custom-image {
+            width: 70px;
+            height: auto;
+            transition: transform 0.2s;
         }
         
-        /* Footer Styles */
-        .footer {
-            background-color: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            margin-top: 40px;
-            border-top: 1px solid #eaeaea;
-            font-size: 14px;
-            color: #6c757d;
+        .custom-image-widget:hover .custom-image {
+            transform: scale(1.05);
+        }
+        
+        .custom-image-widget:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-content.active {
+            max-height: 2000px; 
+            transition: max-height 0.3s ease-in;
+        }
+        .tool-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        html.dark .tool-card:hover {
+            box-shadow: 0 10px 25px rgba(255,255,255,0.05);
+        }
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 0.5rem; 
+            top: 1.5rem; 
+            width: 0.75rem; 
+            height: 0.75rem; 
+            border-radius: 9999px; 
+            background-color: #DF1783; 
+            border: 4px solid #f8fafc;
+            box-sizing: content-box; 
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        html.dark .timeline-marker {
+            border: 4px solid #1f2937;
+            background-color: #db2777;
         }
 
-        .footer p {
-            margin: 0;
+        @media (min-width: 640px) {
+            .timeline-marker {
+                left: 1rem;
+            }
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0.5rem;
+            height: 100%;
+            width: 2px;
+            background-color: #e2e8f0;
+            transform: translateX(-50%);
+        }
+        html.dark .timeline-item::after {
+            background-color: #374151;
+        }
+
+        @media (min-width: 640px) {
+            .timeline-item::after {
+                left: 1rem;
+            }
+        }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 80px; 
+            right: 45px;
+            display: none;
+            cursor: pointer;
+            z-index: 1000; 
+        }
+        
+        /* New container styling for consistent width */
+        .container-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Timeline specific width constraints */
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Header styling */
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #db2777, #9333ea);
         }
     </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/"
+  }
+}
+</script>
 </head>
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-slate-200 transition-colors duration-300">
+    
+    <div class="custom-image-widget" style="position: relative; display: inline-block;">
+        <a href="https://elnegocio-digital.translate.goog/?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp">
+            <img class="custom-image" 
+                 src="https://bucket.mlcdn.com/a/3336/3336910/images/138f14304ea21715dfae64ae5fe1d71b08c2d451.png" 
+                 alt="Ver en Inglés"
+                 style="display: block;"> 
+        </a>
+    </div>
+    
+    <!-- Desktop Sidebar -->
+    <div id="sidebar" class="hidden lg:block fixed left-0 top-0 h-full w-80 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 shadow-lg overflow-y-auto z-10">
+        <div class="p-6">
+            <div class="mb-8">
+                <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                    <i data-lucide="search-check" class="w-6 h-6 text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Market Research Hub 🎯</h1>
+                <p class="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">Tu Guía Completa para el Éxito en el Mercado</p>
+            </div>
+            
+            <nav class="space-y-2 mb-8">
+                <a href="#" onclick="showSection('overview')" class="nav-item active flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                    <i data-lucide="building-2" class="w-4 h-4 mr-3"></i>
+                    <span class="font-medium">Visión General</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                </a>
+                <a href="#" onclick="showSection('market-investigation')" class="nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                    <i data-lucide="file-text" class="w-4 h-4 mr-3"></i>
+                    <span class="font-medium">Investigación de Mercado</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                </a>
+                <a href="#" onclick="showSection('trend-identification')" class="nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                    <i data-lucide="file-text" class="w-4 h-4 mr-3"></i>
+                    <span class="font-medium">Identificación de Tendencias y Nichos</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                </a>
+                <a href="#" onclick="showSection('competitive-analysis')" class="nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                    <i data-lucide="file-text" class="w-4 h-4 mr-3"></i>
+                    <span class="font-medium">Análisis Competitivo</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                </a>
+                <a href="#" onclick="showSection('product-validation')" class="nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                    <i data-lucide="file-text" class="w-4 h-4 mr-3"></i>
+                    <span class="font-medium">Validación de Producto</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                </a>
+                <a href="#" onclick="showSection('advanced-analysis')" class="nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                    <i data-lucide="file-text" class="w-4 h-4 mr-3"></i>
+                    <span class="font-medium">Análisis Avanzado</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                </a>
+                <a href="#" onclick="showSection('tools-directory')" class="nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                    <i data-lucide="file-text" class="w-4 h-4 mr-3"></i>
+                    <span class="font-medium">Directorio de Herramientas</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                </a>
+            </nav>
 
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="brand">
-                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/2a926c37fc929607aeed2f835f3a06e0e9f3cff8.png" alt="VibeCoding Studio Logo" class="brand-logo">
-                <span class="brand-text">Creador de FAQ</span>
-            </div>
-            <h1></h1>
-            <div class="header-buttons">
-                <button class="btn btn-secondary" onclick="toggleCustomization()">🎨 Personalizar</button>
-                <button class="btn btn-primary" onclick="generateCode()">📋 Obtener Código</button>
-            </div>
-        </div>
-        
-        <!-- Main Layout -->
-        <div class="main-layout">
-            <!-- Editor Panel -->
-            <div class="panel">
-                <div class="panel-header">
-                    📝 Editor de FAQ
+            <div class="border-t border-gray-200 dark:border-slate-700 pt-6">
+                <div class="mb-4">
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-2">📋 Plantilla de Investigación</h3>
+                    <p class="text-xs text-gray-600 dark:text-slate-400 mb-3">Obtén la plantilla completa de Notion para organizar tus hallazgos de investigación</p>
+                    <button onclick="handleNotionAccess()" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                        <i data-lucide="external-link" class="w-4 h-4 mr-2"></i> Acceder a Plantilla
+                    </button>
                 </div>
-                <div class="panel-content" id="editor-content">
-                    <div class="editor-section">
-                        <div class="section-title">Pestañas de FAQ</div>
-                        <div class="tab-list" id="tab-list">
-                            <button class="tab-button active" data-tab="0">General</button>
-                        </div>
-                        <button class="btn btn-secondary" onclick="addTab()">+ Añadir Pestaña</button>
-                    </div>
-                    <div class="editor-section">
-                        <div class="section-title">Preguntas y Respuestas</div>
-                        <div id="faq-items">
-                            <!-- FAQ items will be inserted here -->
-                        </div>
-                        <button class="btn btn-primary" onclick="addFAQItem()">+ Añadir Pregunta</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Preview Panel -->
-            <div class="panel">
-                <div class="panel-header">
-                    👀 Vista Previa
-                </div>
-                <div class="panel-content">
-                    <div class="preview-container">
-                        <div id="preview-widget" class="faq-widget">
-                            <div class="empty-state">
-                                <h3>No hay preguntas aún</h3>
-                                <p>Añade algunas preguntas y respuestas para ver la vista previa</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Customization Sidebar -->
-        <div class="sidebar-overlay" onclick="toggleCustomization()"></div>
-        <div id="customization-sidebar" class="customization-sidebar">
-            <div class="customization-header">
-                <h3>🎨 Personalizar FAQ</h3>
-                <button class="close-btn" onclick="toggleCustomization()">&times;</button>
-            </div>
-            
-            <div class="customization-content">
-                <!-- Color Customization -->
-                <div class="customization-section">
-                    <label>🎨 Color Principal</label>
-                    <div class="color-grid">
-                        <div class="color-swatch active" style="background: #DF1783" data-color="#DF1783"></div>
-                        <div class="color-swatch" style="background: #3B82F6" data-color="#3B82F6"></div>
-                        <div class="color-swatch" style="background: #10B981" data-color="#10B981"></div>
-                        <div class="color-swatch" style="background: #F59E0B" data-color="#F59E0B"></div>
-                        <div class="color-swatch" style="background: #EF4444" data-color="#EF4444"></div>
-                        <div class="color-swatch" style="background: #8B5CF6" data-color="#8B5CF6"></div>
-                        <div class="color-swatch" style="background: #06B6D4" data-color="#06B6D4"></div>
-                        <div class="color-swatch" style="background: #84CC16" data-color="#84CC16"></div>
-                    </div>
-                    <div style="margin-top: 10px;">
-                        <input type="color" id="custom-color" value="#DF1783" onchange="updatePrimaryColor(this.value)" style="width: 100%; height: 40px; border: none; border-radius: 6px;">
-                    </div>
-                </div>
-                
-                <!-- Typography -->
-                <div class="customization-section">
-                    <label>📝 Tipografía</label>
-                    <div class="slider-container">
-                        <label style="font-size: 12px; color: #666;">Tamaño de fuente: <span id="font-size-value">16</span>px</label>
-                        <input type="range" class="slider" id="font-size-slider" min="12" max="24" value="16" oninput="updateFontSize(this.value)">
-                    </div>
-                </div>
-                
-                <!-- Display Style -->
-                <div class="customization-section">
-                    <label>🔧 Estilo de Visualización</label>
-                    <div class="style-options">
-                        <div class="style-option active" onclick="setDisplayStyle('accordion')" data-style="accordion">
-                            Acordeón
-                        </div>
-                        <div class="style-option" onclick="setDisplayStyle('card')" data-style="card">
-                            Tarjetas
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Spacing -->
-                <div class="customization-section">
-                    <label>📏 Espaciado</label>
-                    <div class="slider-container">
-                        <label style="font-size: 12px; color: #666;">Espaciado: <span id="spacing-value">16</span>px</label>
-                        <input type="range" class="slider" id="spacing-slider" min="8" max="32" value="16" step="4" oninput="updateSpacing(this.value)">
-                    </div>
-                </div>
-                
-                <!-- Border & Shape -->
-                <div class="customization-section">
-                    <label>🔲 Bordes y Forma</label>
-                    <div class="slider-container">
-                        <label style="font-size: 12px; color: #666;">Radio de borde: <span id="border-radius-value">8</span>px</label>
-                        <input type="range" class="slider" id="border-radius-slider" min="0" max="20" value="8" step="2" oninput="updateBorderRadius(this.value)">
-                    </div>
-                    <div class="slider-container">
-                        <label style="font-size: 12px; color: #666;">Ancho de borde: <span id="border-width-value">1</span>px</label>
-                        <input type="range" class="slider" id="border-width-slider" min="0" max="4" value="1" step="1" oninput="updateBorderWidth(this.value)">
-                    </div>
-                </div>
-                
-                <!-- Reset -->
-                <div class="customization-section">
-                    <button class="btn btn-secondary" onclick="resetToDefaults()" style="width: 100%;">
-                        ↺ Restablecer Valores
+
+                <!-- Theme Toggle Button - Desktop -->
+                <div class="mt-4">
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-2">🎨 Tema</h3>
+                     <button id="theme-toggle-desktop" aria-label="Cambiar tema" class="w-full text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center border border-gray-300 dark:border-slate-600">
+                        <i data-lucide="sun" class="w-4 h-4 mr-2 theme-icon-sun"></i>
+                        <i data-lucide="moon" class="w-4 h-4 mr-2 theme-icon-moon hidden"></i>
+                        <span id="theme-toggle-desktop-text">Cambiar Tema</span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Code Generation Modal -->
-    <div id="code-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">🎉 Código Generado</h2>
-                <button class="close-btn" onclick="closeCodeModal()">&times;</button>
-            </div>
-            <p>Copia este código y pégalo en tu sitio web donde quieras que aparezca el FAQ:</p>
-            <div class="code-block" id="generated-code">
-                <button class="copy-btn" onclick="copyCode()">Copiar</button>
-                <pre id="code-content"></pre>
-            </div>
-            <div style="margin-top: 1rem;">
-                <small style="color: #6b7280;">Este código es autónomo y no requiere dependencias externas.</small>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Add/Edit FAQ Modal -->
-    <div id="faq-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="faq-modal-title">✏️ Añadir Pregunta</h2>
-                <button class="close-btn" onclick="closeFAQModal()">&times;</button>
-            </div>
-            <div class="input-group">
-                <label>Pregunta</label>
-                <input type="text" class="input" id="faq-question-input" placeholder="Ingresa tu pregunta">
-            </div>
-            <div class="input-group">
-                <label>Respuesta</label>
-                <textarea class="textarea" id="faq-answer-input" placeholder="Ingresa la respuesta" rows="4"></textarea>
-            </div>
-            <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                <button class="btn btn-secondary" onclick="closeFAQModal()">Cancelar</button>
-                <button class="btn btn-primary" onclick="saveFAQ()">Guardar</button>
-            </div>
-        </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="lg:hidden fixed top-4 left-4 z-50">
+        <button onclick="toggleMobileMenu()" aria-label="Abrir/cerrar menú móvil" class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-3 border border-gray-200 dark:border-slate-700">
+            <i id="mobile-menu-icon" data-lucide="menu" class="w-6 h-6 text-gray-600 dark:text-slate-300"></i>
+        </button>
     </div>
 
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-overlay" class="lg:hidden fixed inset-0 z-40 hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-75" onclick="toggleMobileMenu()"></div>
+        <div id="mobile-sidebar" class="relative w-80 bg-white dark:bg-slate-800 h-full shadow-lg overflow-y-auto">
+            <div class="p-6">
+                <div class="mb-8">
+                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="search-check" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Market Research Hub 🚀</h1>
+                    <p class="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">Tu Guía Completa para el Éxito en el Mercado</p>
+                </div>
 
+                <nav class="space-y-2 mb-8">
+                    <a href="#" onclick="showSection('overview'); toggleMobileMenu()" class="mobile-nav-item active flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                        <i data-lucide="building-2" class="w-4 h-4 mr-3"></i><span class="font-medium">Visión General</span><i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                    </a>
+                    <a href="#" onclick="showSection('market-investigation'); toggleMobileMenu()" class="mobile-nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-3"></i><span class="font-medium">Investigación de Mercado</span><i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                    </a>
+                    <a href="#" onclick="showSection('trend-identification'); toggleMobileMenu()" class="mobile-nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-3"></i><span class="font-medium">Identificación de Tendencias y Nichos</span><i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                    </a>
+                    <a href="#" onclick="showSection('competitive-analysis'); toggleMobileMenu()" class="mobile-nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-3"></i><span class="font-medium">Análisis Competitivo</span><i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                    </a>
+                    <a href="#" onclick="showSection('product-validation'); toggleMobileMenu()" class="mobile-nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-3"></i><span class="font-medium">Validación de Producto</span><i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                    </a>
+                    <a href="#" onclick="showSection('advanced-analysis'); toggleMobileMenu()" class="mobile-nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-3"></i><span class="font-medium">Análisis Avanzado</span><i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                    </a>
+                    <a href="#" onclick="showSection('tools-directory'); toggleMobileMenu()" class="mobile-nav-item flex items-center px-3 py-2 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-3"></i><span class="font-medium">Directorio de Herramientas</span><i data-lucide="chevron-right" class="w-4 h-4 ml-auto"></i>
+                    </a>
+                </nav>
 
-    
-    <!-- Footer -->
-    <footer class="footer">
-        <p>Copyright © 2024 • All rights reserved.<br>Powered with 💖 by Bebell Digital Solutions.</p>
-    </footer>
-
-
-
-
-
-
-    
-
-<script>
-    // Application State
-    let state = {
-        tabs: [
-            { id: 0, name: 'General', faqs: [] }
-        ],
-        activeTab: 0,
-        activePreviewTab: 0,
-        activeFAQ: null, // { tabIndex: number, faqIndex: number }
-        editingFAQ: null,
-        settings: {
-            primaryColor: '#DF1783',
-            displayStyle: 'accordion', // 'accordion' or 'card'
-            fontSize: 16,
-            spacing: 16,
-            borderRadius: 8,
-            borderWidth: 1
-        }
-    };
-    
-    // Initialize Application
-    function init() {
-        updateTabList();
-        updateFAQItems();
-        updatePreview();
-        updateCustomizationUI();
-        initColorSwatches();
-        initDisplayStyleOptions();
-    }
-    
-    // Color Swatch Management
-    function initColorSwatches() {
-        document.querySelectorAll('.color-swatch').forEach(swatch => {
-            swatch.addEventListener('click', function() {
-                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-                this.classList.add('active');
-                updatePrimaryColor(this.dataset.color);
-            });
-        });
-    }
-    
-    // Display Style Options Initialization
-    function initDisplayStyleOptions() {
-        document.querySelectorAll('.style-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.style-option').forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-                setDisplayStyle(this.dataset.style);
-            });
-        });
-    }
-    
-    // Tab Management
-    function addTab() {
-        const name = prompt('Ingresa el nombre de la pestaña:');
-        if (name && name.trim()) {
-            const newTab = {
-                id: Date.now(),
-                name: name.trim(),
-                faqs: []
-            };
-            state.tabs.push(newTab);
-            updateTabList();
-            switchTab(newTab.id);
-        }
-    }
-    
-    function deleteTab(tabId) {
-        if (state.tabs.length <= 1) {
-            alert('Debes tener al menos una pestaña');
-            return;
-        }
-        
-        if (confirm('¿Estás seguro de que deseas eliminar esta pestaña y todas sus preguntas?')) {
-            const tabIndex = state.tabs.findIndex(t => t.id === tabId);
-            state.tabs.splice(tabIndex, 1);
-            
-            // Switch to first tab if we deleted the active one
-            if (tabId === state.activeTab) {
-                state.activeTab = state.tabs[0].id;
-                state.activePreviewTab = 0;
-            }
-            
-            updateTabList();
-            updateFAQItems();
-            updatePreview();
-        }
-    }
-    
-    function renameTab(tabId) {
-        const tab = state.tabs.find(t => t.id === tabId);
-        if (tab) {
-            const newName = prompt('Nuevo nombre de la pestaña:', tab.name);
-            if (newName && newName.trim()) {
-                tab.name = newName.trim();
-                updateTabList();
-                updatePreview();
-            }
-        }
-    }
-    
-    function switchTab(tabId) {
-        state.activeTab = tabId;
-        state.activePreviewTab = state.tabs.findIndex(t => t.id === tabId);
-        state.activeFAQ = null; // Reset active FAQ when switching tabs
-        updateTabList();
-        updateFAQItems();
-        updatePreview();
-    }
-    
-    function updateTabList() {
-        const tabList = document.getElementById('tab-list');
-        tabList.innerHTML = '';
-        
-        state.tabs.forEach(tab => {
-            const tabContainer = document.createElement('div');
-            tabContainer.className = 'tab-container';
-            
-            const button = document.createElement('button');
-            button.className = `tab-button ${tab.id === state.activeTab ? 'active' : ''}`;
-            button.textContent = tab.name;
-            button.onclick = () => switchTab(tab.id);
-            button.ondblclick = () => renameTab(tab.id);
-            
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'tab-delete-btn';
-            deleteBtn.innerHTML = '×';
-            deleteBtn.onclick = (e) => {
-                e.stopPropagation();
-                deleteTab(tab.id);
-            };
-            
-            tabContainer.appendChild(button);
-            if (state.tabs.length > 1) {
-                tabContainer.appendChild(deleteBtn);
-            }
-            tabList.appendChild(tabContainer);
-        });
-    }
-    
-    // FAQ Management
-    function addFAQItem() {
-        state.editingFAQ = null;
-        document.getElementById('faq-modal-title').textContent = '✏️ Añadir Pregunta';
-        document.getElementById('faq-question-input').value = '';
-        document.getElementById('faq-answer-input').value = '';
-        document.getElementById('faq-modal').style.display = 'block';
-    }
-    
-    function editFAQ(index) {
-        const currentTab = getCurrentTab();
-        const faq = currentTab.faqs[index];
-        
-        state.editingFAQ = index;
-        document.getElementById('faq-modal-title').textContent = '✏️ Editar Pregunta';
-        document.getElementById('faq-question-input').value = faq.question;
-        document.getElementById('faq-answer-input').value = faq.answer;
-        document.getElementById('faq-modal').style.display = 'block';
-    }
-    
-    function deleteFAQ(index) {
-        if (confirm('¿Estás seguro de que deseas eliminar esta pregunta frecuente?')) {
-            const currentTab = getCurrentTab();
-            currentTab.faqs.splice(index, 1);
-            
-            // Reset active FAQ if it was deleted
-            if (state.activeFAQ && state.activeFAQ.faqIndex === index) {
-                state.activeFAQ = null;
-            }
-            
-            updateFAQItems();
-            updatePreview();
-        }
-    }
-    
-    function saveFAQ() {
-        const question = document.getElementById('faq-question-input').value.trim();
-        const answer = document.getElementById('faq-answer-input').value.trim();
-        
-        if (!question || !answer) {
-            alert('Por favor completa tanto la pregunta como la respuesta');
-            return;
-        }
-        
-        const currentTab = getCurrentTab();
-        const faq = { question, answer };
-        
-        if (state.editingFAQ !== null) {
-            currentTab.faqs[state.editingFAQ] = faq;
-        } else {
-            currentTab.faqs.push(faq);
-        }
-        
-        closeFAQModal();
-        updateFAQItems();
-        updatePreview();
-    }
-    
-    function closeFAQModal() {
-        document.getElementById('faq-modal').style.display = 'none';
-        state.editingFAQ = null;
-    }
-    
-    function updateFAQItems() {
-        const container = document.getElementById('faq-items');
-        const currentTab = getCurrentTab();
-        
-        if (currentTab.faqs.length === 0) {
-            container.innerHTML = '<div class="empty-state"><p>No hay preguntas añadidas aún. Haz clic en "Añadir Pregunta" para comenzar.</p></div>';
-            return;
-        }
-        
-        container.innerHTML = '';
-        currentTab.faqs.forEach((faq, index) => {
-            const item = document.createElement('div');
-            item.className = 'faq-item';
-            item.innerHTML = `
-                <div class="faq-item-header">
-                    <div class="faq-item-title">${escapeHtml(faq.question)}</div>
-                    <div class="faq-actions">
-                        <button class="btn-small btn-edit" onclick="editFAQ(${index})">Editar</button>
-                        <button class="btn-small btn-delete" onclick="deleteFAQ(${index})">Eliminar</button>
+                <div class="border-t border-gray-200 dark:border-slate-700 pt-6">
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-2">📋 Plantilla de Investigación</h3>
+                        <p class="text-xs text-gray-600 dark:text-slate-400 mb-3">Obtén la plantilla completa de Notion para organizar tus hallazgos de investigación</p>
+                        <button onclick="handleNotionAccess()" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                            <i data-lucide="external-link" class="w-4 h-4 mr-2"></i> Acceder a Plantilla
+                        </button>
+                    </div>
+                     <!-- Theme Toggle Button - Mobile -->
+                    <div class="mt-4">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-2">🎨 Tema</h3>
+                        <button id="theme-toggle-mobile" aria-label="Cambiar tema" class="w-full text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center border border-gray-300 dark:border-slate-600">
+                            <i data-lucide="sun" class="w-4 h-4 mr-2 theme-icon-sun"></i>
+                            <i data-lucide="moon" class="w-4 h-4 mr-2 theme-icon-moon hidden"></i>
+                            <span id="theme-toggle-mobile-text">Cambiar Tema</span>
+                        </button>
                     </div>
                 </div>
-                <div style="color: #6b7280; font-size: 14px;">${escapeHtml(faq.answer)}</div>
-            `;
-            container.appendChild(item);
-        });
-    }
-    
-    // Preview Management
-    function updatePreview() {
-        const preview = document.getElementById('preview-widget');
-        const allTabs = state.tabs;
-        
-        if (allTabs.every(tab => tab.faqs.length === 0)) {
-            preview.innerHTML = `
-                <div class="empty-state">
-                    <h3>No hay elementos en las FAQ</h3>
-                    <p>Añade algunas preguntas y respuestas para ver la vista previa</p>
-                </div>
-            `;
-            return;
-        }
-        
-        let html = '';
-        
-        // Add tabs if multiple sections with content
-        const tabsWithContent = allTabs.filter(tab => tab.faqs.length > 0);
-        if (tabsWithContent.length > 1) {
-            html += '<div class="faq-tabs">';
-            tabsWithContent.forEach((tab, index) => {
-                const isActive = index === state.activePreviewTab;
-                html += `<button class="faq-tab ${isActive ? 'active' : ''}" 
-                          onclick="switchPreviewTab(${index})">${escapeHtml(tab.name)}</button>`;
-            });
-            html += '</div>';
-        }
-        
-        // Add content for each tab
-        tabsWithContent.forEach((tab, tabIndex) => {
-            const isActive = tabIndex === state.activePreviewTab;
-            html += `<div class="faq-content ${isActive ? 'active' : ''}" data-tab="${tabIndex}">`;
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="lg:ml-80 min-h-screen">
+        <div class="p-4 lg:p-8 pt-20 lg:pt-8">
             
-            if (state.settings.displayStyle === 'accordion') {
-                html += '<div class="faq-accordion">';
-                
-                tab.faqs.forEach((faq, faqIndex) => {
-                    const isFAQActive = state.activeFAQ && 
-                                       state.activeFAQ.tabIndex === tabIndex && 
-                                       state.activeFAQ.faqIndex === faqIndex;
-                    
-                    html += `
-                        <button class="faq-question ${isFAQActive ? 'active' : ''}" 
-                                onclick="togglePreviewFAQ(${tabIndex}, ${faqIndex})"
-                                style="background: ${isFAQActive ? state.settings.primaryColor : '#f8fafc'}; 
-                                       color: ${isFAQActive ? 'white' : '#374151'}; 
-                                       border: none; 
-                                       padding: ${state.settings.spacing}px; 
-                                       width: 100%; 
-                                       text-align: left; 
-                                       cursor: pointer; 
-                                       font-weight: 500; 
-                                       border-bottom: ${state.settings.borderWidth}px solid #e2e8f0; 
-                                       transition: all 0.2s; 
-                                       display: flex; 
-                                       justify-content: space-between; 
-                                       align-items: center; 
-                                       font-size: ${state.settings.fontSize}px;"
-                                onmouseover="if(!this.classList.contains('active')) { this.style.background='#f1f5f9' }"
-                                onmouseout="if(!this.classList.contains('active')) { this.style.background='#f8fafc' }">
-                            ${escapeHtml(faq.question)}
-                            <span class="faq-icon" style="transform: ${isFAQActive ? 'rotate(180deg)' : 'rotate(0deg)'}; color: ${isFAQActive ? 'white' : state.settings.primaryColor};">▼</span>
-                        </button>
-                        <div class="faq-answer ${isFAQActive ? 'active' : ''}" data-tab="${tabIndex}" data-faq="${faqIndex}" 
-                             style="padding: ${state.settings.spacing}px; font-size: ${state.settings.fontSize}px; display: ${isFAQActive ? 'block' : 'none'};">
-                            ${escapeHtml(faq.answer)}
+            <div id="overview-section" class="content-section">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <br>
+                        <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-slate-100 mb-6">
+                            Panel de 
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600">Investigación</span>
+                        </h1>
+                        <p class="text-xl text-gray-600 dark:text-slate-400 max-w-3xl mx-auto mb-8">
+                            Tu guía completa para construir un negocio en línea sostenible a través de la investigación y el análisis estratégico. Desde la validación de la idea hasta el lanzamiento al mercado.
+                        </p>
+                        
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="showSection('market-investigation')" class="bg-pink-600 hover:bg-pink-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                                🎯 Comenzar Investigación<i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                            </button>
+                            <button onclick="handleNotionAccess()" class="border border-gray-300 dark:border-slate-600 hover:border-gray-400 dark:hover:border-slate-500 text-gray-700 dark:text-slate-300 font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                                📋 Obtener Plantilla de Notion <i data-lucide="external-link" class="w-4 h-4 ml-2"></i>
+                            </button>
                         </div>
-                    `;
-                });
-                
-                html += '</div>';
-            } else if (state.settings.displayStyle === 'card') {
-                html += `<div class="faq-cards" style="gap: ${state.settings.spacing}px; padding: ${state.settings.spacing}px;">`;
-                
-                tab.faqs.forEach((faq, faqIndex) => {
-                    html += `
-                        <div class="faq-card" style="border: ${state.settings.borderWidth}px solid #e2e8f0; 
-                                                    border-radius: ${state.settings.borderRadius}px; 
-                                                    padding: ${state.settings.spacing}px; 
-                                                    background: white;
-                                                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                            <h3 class="faq-card-question" style="font-size: ${state.settings.fontSize}px; 
-                                                               margin-bottom: ${state.settings.spacing / 2}px; 
-                                                               color: ${state.settings.primaryColor};">
-                                ${escapeHtml(faq.question)}
-                            </h3>
-                            <div class="faq-card-answer" style="color: #6b7280; font-size: ${state.settings.fontSize}px;">
-                                ${escapeHtml(faq.answer)}
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                       <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 text-center">
+                            <div class="w-12 h-12 bg-pink-100 dark:bg-pink-900/50 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-pink-600 dark:text-pink-400">
+                                    <path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13"/><path d="m8 6 2-2"/><path d="m18 16 2-2"/><path d="m17 11 4.3 4.3c.94.94.94 2.46 0 3.4l-2.6 2.6c-.94.94-2.46.94-3.4 0L11 17"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-1">22+</h3>
+                            <p class="text-gray-600 dark:text-slate-400 text-sm">Herramientas de Investigación</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 text-center">
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="layers" class="w-6 h-6 text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-1">5</h3>
+                            <p class="text-gray-600 dark:text-slate-400 text-sm">Fases de Investigación</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 text-center">
+                            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="clock" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-1">6-8</h3>
+                            <p class="text-gray-600 dark:text-slate-400 text-sm">Semanas de Proceso</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 text-center">
+                            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="target" class="w-6 h-6 text-purple-600 dark:text-purple-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-1">100%</h3>
+                            <p class="text-gray-600 dark:text-slate-400 text-sm">Tasa de Éxito</p>
+                        </div>
+                    </div>
+                    
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-8 mb-12">
+                        <h2 class="text-5xl font-bold text-gray-900 dark:text-slate-100 tracking-tight mb-7 mt-8 text-center">
+                            🎯 Proceso de <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600">Investigación</span>
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                            <div class="text-center" onclick="showSection('market-investigation')">
+                                <div class="w-16 h-16 bg-pink-100 dark:bg-pink-900/50 rounded-full flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-pink-200 dark:hover:bg-pink-800/60 transition-colors">
+                                    <span class="text-2xl">🔍</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-2">Investigación de Mercado</h3>
+                                <p class="text-sm text-gray-600 dark:text-slate-400">Comprendiendo el panorama de tu mercado y oportunidades</p>
+                            </div>
+                            <div class="text-center" onclick="showSection('trend-identification')">
+                                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800/60 transition-colors">
+                                    <span class="text-2xl">📈</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-2">Análisis de Tendencias</h3>
+                                <p class="text-sm text-gray-600 dark:text-slate-400">Descubriendo oportunidades en tendencia y brechas de mercado</p>
+                            </div>
+                            <div class="text-center" onclick="showSection('competitive-analysis')">
+                                <div class="w-16 h-16 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-green-200 dark:hover:bg-green-800/60 transition-colors">
+                                    <span class="text-2xl">🏆</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-2">Inteligencia Competitiva</h3>
+                                <p class="text-sm text-gray-600 dark:text-slate-400">Analizando competidores y posicionamiento en el mercado</p>
+                            </div>
+                            <div class="text-center" onclick="showSection('product-validation')">
+                                <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-purple-200 dark:hover:bg-purple-800/60 transition-colors">
+                                    <span class="text-2xl">✅</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-2">Validación de Producto</h3>
+                                <p class="text-sm text-gray-600 dark:text-slate-400">Validando la demanda del producto y estrategias de precios</p>
+                            </div>
+                            <div class="text-center" onclick="showSection('advanced-analysis')">
+                                <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/50 rounded-full flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-yellow-200 dark:hover:bg-yellow-800/60 transition-colors">
+                                    <span class="text-2xl">🔬</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-2">Análisis Avanzado</h3>
+                                <p class="text-sm text-gray-600 dark:text-slate-400 mb-8">Investigación profunda y análisis de documentos</p>
                             </div>
                         </div>
-                    `;
-                });
+                    </div>
+                </div>
                 
-                html += '</div>';
+                
+                
+                
+                
+                
+               <!-- Fixed Timeline Section -->
+        <div class="max-w-6xl mx-auto bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 sm:p-8 mb-10">
+            <div class="section-header">
+                <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-slate-100 tracking-tight">
+                    ⏳ Cronograma de<span class="gradient-text"> Investigación</span>
+                </h2>
+            </div>
+            
+            <!-- Timeline container with fixed width -->
+            <div class="timeline-container">
+                <div class="space-y-6">
+                    <!-- Timeline Item 1 -->
+                    <div class="relative pl-6 sm:pl-8 py-6 group timeline-item">
+                        <div class="font-caveat font-medium text-2xl text-pink-600 dark:text-pink-400 mb-1 sm:mb-0 sm:ml-22">Fase 1</div>
+                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden">
+                         
+                            <div class="text-xl font-bold text-slate-900 dark:text-slate-100 sm:ml-22">Investigación de Mercado</div>
+                            <div class="timeline-marker"></div>
+                        </div>
+                        <div class="text-slate-600 dark:text-slate-400 mt-3 sm:ml-22">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Define tu mercado objetivo y perfiles de cliente</li>
+                                <li>Analiza el tamaño del mercado y potencial de crecimiento</li>
+                                <li>Identifica tendencias y dinámicas clave del mercado</li>
+                                <li>Realiza un análisis FODA del mercado</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 2 -->
+                    <div class="relative pl-6 sm:pl-8 py-6 group timeline-item">
+                        <div class="font-caveat font-medium text-2xl text-pink-600 dark:text-pink-400 mb-1 sm:mb-0 sm:ml-22">Fase 2</div>
+                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden">
+                          
+                            <div class="text-xl font-bold text-slate-900 dark:text-slate-100 sm:ml-22">Identificación de Tendencias y Nichos</div>
+                            <div class="timeline-marker"></div>
+                        </div>
+                        <div class="text-slate-600 dark:text-slate-400 mt-3 sm:ml-22">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Identifica tendencias emergentes en tu industria</li>
+                                <li>Descubre oportunidades de nicho rentables</li>
+                                <li>Analiza tendencias de búsqueda y movimiento en redes sociales</li>
+                                <li>Valida la demanda mediante investigación de palabras clave</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 3 -->
+                    <div class="relative pl-6 sm:pl-8 py-6 group timeline-item">
+                        <div class="font-caveat font-medium text-2xl text-pink-600 dark:text-pink-400 mb-1 sm:mb-0 sm:ml-22">Fase 3</div>
+                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden">
+                          
+                            <div class="text-xl font-bold text-slate-900 dark:text-slate-100 sm:ml-22">Análisis Competitivo</div>
+                            <div class="timeline-marker"></div>
+                        </div>
+                        <div class="text-slate-600 dark:text-slate-400 mt-3 sm:ml-22">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Identifica competidores directos e indirectos</li>
+                                <li>Analiza las fortalezas y debilidades de los competidores</li>
+                                <li>Mapea los precios y el posicionamiento de los competidores</li>
+                                <li>Identifica brechas en el panorama competitivo</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 4 -->
+                    <div class="relative pl-6 sm:pl-8 py-6 group timeline-item">
+                        <div class="font-caveat font-medium text-2xl text-pink-600 dark:text-pink-400 mb-1 sm:mb-0 sm:ml-22">Fase 4</div>
+                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden">
+                           
+                            <div class="text-xl font-bold text-slate-900 dark:text-slate-100 sm:ml-22">Validación de Producto</div>
+                            <div class="timeline-marker"></div>
+                        </div>
+                        <div class="text-slate-600 dark:text-slate-400 mt-3 sm:ml-22">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Valida el ajuste producto-mercado</li>
+                                <li>Prueba estrategias de precios</li>
+                                <li>Recopila retroalimentación temprana de clientes</li>
+                                <li>Realiza encuestas previas al lanzamiento</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 5 -->
+                    <div class="relative pl-6 sm:pl-8 py-6 group timeline-item">
+                        <div class="font-caveat font-medium text-2xl text-pink-600 dark:text-pink-400 mb-1 sm:mb-0 sm:ml-22">Fase 5</div>
+                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden">
+                           
+                            <div class="text-xl font-bold text-slate-900 dark:text-slate-100 sm:ml-22">Análisis Avanzado y Estrategia</div>
+                            <div class="timeline-marker"></div>
+                        </div>
+                        <div class="text-slate-600 dark:text-slate-400 mt-3 sm:ml-22">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Recopila los hallazgos de la investigación en ideas accionables</li>
+                                <li>Desarrolla una estrategia de salida al mercado</li>
+                                <li>Crea recomendaciones de marketing y posicionamiento</li>
+                                <li>Finaliza la documentación de la investigación</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+        
+        
+        
+        
+        
+        
+        
+        
+                    <div class="flex flex-col mt-20 sm:flex-row gap-4 justify-center">
+                        <button onclick="showSection('market-investigation')" class="bg-pink-600 hover:bg-pink-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                            🎯 Comencemos <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="mt-12">
+                      <img src="https://bucket.mlcdn.com/a/3336/3336910/images/0953b807d6a746d122e2ee8054b51fdc0a0aef14.png" alt="Banner de Investigación de Mercado" class="w-full h-auto object-cover rounded-lg" loading="lazy">
+                    </div>
+                    <div class="mt-0 bg-gradient-to-r from-pink-600 to-purple-600 py-12 px-4 sm:px-6 lg:px-8 rounded-lg shadow-lg">
+                      <div class="max-w-5xl mx-auto text-center">
+                        <blockquote class="text-white">
+                          <p class="text-xl sm:text-2xl font-medium italic leading-relaxed">
+                            "El secreto del éxito en los negocios es la preparación, la investigación y el trabajo duro. 
+                            <span class="block mt-4 font-bold text-white/90">La buena fortuna es lo que sucede cuando la oportunidad se encuentra con la preparación.</span>"
+                          </p>
+                          <footer class="mt-6 text-white/80">
+                            <cite class="font-semibold not-italic">— Zig Ziglar</cite>
+                          </footer>
+                        </blockquote>
+                      </div>
+                    </div>   
+                </div>
+                
+             
+
+                
+                <div>
+                  <p class="text-xs text-center my-2.5 text-gray-600 dark:text-slate-400">
+                    <br>Desarrollado con 💖 por Bebell Digital Solutions.<br>
+                    Copyright © 2024 • Todos los derechos reservados
+                  </p>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="fixed bottom-0 right-0 w-full md:bottom-6 md:right-12 md:w-auto z-50" :class="bannerOpen ? '' : 'hidden'" x-data="{ bannerOpen: true, videoOpen: false }">
+                <div x-show="videoOpen" class="fixed inset-0 bg-black bg-opacity-75 dark:bg-opacity-85 z-50 flex items-center justify-center p-4" @click.away="videoOpen = false">
+                    <div class="relative w-full max-w-4xl bg-white dark:bg-slate-800 rounded-lg overflow-hidden">
+                        <button class="absolute top-2 right-2 z-50 text-white bg-black/50 hover:bg-black/75 rounded-full p-1" @click="videoOpen = false">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                            <span class="sr-only">Cerrar video</span>
+                        </button>
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-[300px] md:h-[500px]"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[#DF1783] text-sm p-3 md:rounded-lg shadow-lg flex justify-between">
+                    <div class="text-white inline-flex items-center">
+                        <img src="https://bucket.mlcdn.com/a/3336/3336910/images/2e79720ff0cbac4b6b430d701d053c11dfb48a79.gif" class="w-7 h-7 mr-2" alt="Logo de Bebell Digital Solutions">
+                        <button class="font-medium hover:underline text-white" @click="videoOpen = true">Ver Tutorial</button>
+                        <span class="italic px-1.5">o</span>
+                        <a class="font-medium hover:underline text-white flex items-center" href="https://github.com/cruip/cruip-tutorials/blob/main/vertical-timelines/index.html" target="_blank" rel="noreferrer">
+                            <span>Descargar</span>
+                            <svg class="fill-white ml-1" xmlns="http://www.w3.org/2000/svg" width="9" height="9"><path d="m1.649 8.514-.91-.915 5.514-5.523H2.027l.01-1.258h6.388v6.394H7.158l.01-4.226z" /></svg>
+                        </a>
+                    </div>
+                    <button class="text-white hover:text-slate-200 pl-2 ml-3 border-l border-white/30" @click="bannerOpen = false">
+                        <span class="sr-only">Cerrar</span>
+                        <svg class="w-4 h-4 shrink-0 fill-current" viewBox="0 0 16 16"><path d="M12.72 3.293a1 1 0 00-1.415 0L8.012 6.586 4.72 3.293a1 1 0 00-1.414 1.414L6.598 8l-3.293 3.293a1 1 0 101.414 1.414l3.293-3.293 3.293 3.293a1 1 0 001.414-1.414L9.426 8l3.293-3.293a1 1 0 000-1.414z" /></svg>
+                    </button>
+                </div>
+            </div>
+    
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div id="research-section" class="content-section hidden">
+                <div class="max-w-6xl mx-auto"> <!-- Added max-w-6xl mx-auto for consistent width -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-1">
+                            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 sticky top-8">
+                                <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4 flex items-center">
+                                    <i data-lucide="check-square" class="w-5 h-5 mr-2 text-pink-600 dark:text-pink-400"></i> Progreso de Investigación
+                                </h2>
+                                <div class="space-y-4" id="progress-checklist"></div>
+                                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-slate-700">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm font-medium text-gray-700 dark:text-slate-300">Progreso General</span>
+                                        <span id="overall-progress-text" class="text-sm text-gray-500 dark:text-slate-400">0%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2">
+                                        <div id="overall-progress-bar" class="progress-bar bg-pink-600 h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <div id="research-accordion" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                    <div>
+                  <p class="text-xs text-center my-2.5 text-gray-600 dark:text-slate-400">
+                    <br>Desarrollado con 💖 por Bebell Digital Solutions.<br>
+                    Copyright © 2024 • Todos los derechos reservados
+                  </p>
+                </div>
+                
+                
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            <div id="tools-directory-section" class="content-section hidden">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <div class="lg:w-1/4">
+                            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 sticky top-8">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">🔍 Encontrar Herramientas</h3>
+                                <div class="mb-4">
+                                    <input type="text" id="tool-search" placeholder="Buscar herramientas..." 
+                                           class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-500 focus:border-pink-500 dark:focus:border-pink-500 bg-white dark:bg-slate-700 text-gray-900 dark:text-slate-200"
+                                           onkeyup="filterTools()">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Categoría</label>
+                                    <select id="category-filter" onchange="filterTools()" 
+                                            class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-500 focus:border-pink-500 dark:focus:border-pink-500 bg-white dark:bg-slate-700 text-gray-900 dark:text-slate-200">
+                                        <option value="">Todas las Categorías</option>
+                                        <option value="Validación de Ideas">Validación de Ideas</option>
+                                        <option value="Investigación de Mercado">Investigación de Mercado</option>
+                                        <option value="Inteligencia Competitiva">Inteligencia Competitiva</option>
+                                        <option value="Análisis de Tendencias">Análisis de Tendencias</option>
+                                        <option value="Investigación de Comercio Social">Comercio Social</option>
+                                        <option value="Investigación de Productos">Investigación de Productos</option>
+                                        <option value="Investigación de Documentos">Investigación de Documentos</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Vista</label>
+                                    <div class="flex bg-gray-100 dark:bg-slate-700 rounded-lg p-1">
+                                        <button onclick="setViewMode('grid')" id="grid-view-btn" class="flex-1 px-3 py-1 rounded-md bg-white dark:bg-slate-600 shadow-sm text-sm font-medium text-gray-700 dark:text-slate-200">Cuadrícula</button>
+                                        <button onclick="setViewMode('list')" id="list-view-btn" class="flex-1 px-3 py-1 rounded-md text-sm font-medium text-gray-700 dark:text-slate-300">Lista</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:w-3/4">
+                            <div class="mb-6">
+                                <h1 class="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-2">🛠️ Directorio de Herramientas de Investigación</h1>
+                                <p class="text-gray-600 dark:text-slate-400">Colección completa de herramientas de investigación profesional para emprendedores de comercio electrónico</p>
+                            </div>
+                            <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="tool-modal" class="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-75 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-lg max-w-2xl max-h-[90vh] overflow-y-auto p-6 w-full">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="modal-title" class="text-2xl font-bold text-gray-900 dark:text-slate-100"></h2>
+                <button onclick="closeModal()" aria-label="Cerrar modal" class="text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div id="modal-content" class="text-gray-600 dark:text-slate-300"></div>
+        </div>
+    </div>
+    
+    <div id="notion-modal" class="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-75 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto p-6 w-full">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-slate-100">📋 Acceso a Plantilla de Notion</h2>
+                <button onclick="closeNotionModal()" aria-label="Cerrar modal de Notion" class="text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">📥 Cómo Importar Esta Plantilla a Notion:</h3>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700 dark:text-slate-300">
+                    <li>Copia el contenido de la plantilla a continuación</li>
+                    <li>Abre Notion y crea una nueva página</li>
+                    <li>Pega el contenido en tu nueva página</li>
+                    <li>Notion formateará automáticamente las tablas y la estructura</li>
+                    <li>Personaliza los campos y secciones según las necesidades de tu negocio</li>
+                </ol>
+            </div>
+            <div class="mb-4">
+                <div class="flex gap-2 mb-2">
+                    <button onclick="copyTemplateToClipboard()" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">📋 Copiar Plantilla</button>
+                    <button onclick="downloadTemplateAsFile()" class="bg-gray-600 dark:bg-slate-600 hover:bg-gray-700 dark:hover:bg-slate-500 text-white px-4 py-2 rounded-lg font-medium transition-colors">💾 Descargar Archivo</button>
+                </div>
+            </div>
+            <div class="border border-gray-200 dark:border-slate-700 rounded-lg p-4 bg-gray-50 dark:bg-slate-900 max-h-96 overflow-y-auto">
+                <pre id="notion-template-content" class="whitespace-pre-wrap text-sm text-gray-800 dark:text-slate-200"></pre>
+            </div>
+            <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+                <p class="text-blue-800 dark:text-blue-300 text-sm">
+                    <strong>💡 Consejo Pro:</strong> Después de importar a Notion, puedes convertir las tablas de texto en tablas de base de datos para una mejor funcionalidad. 
+                    Selecciona la tabla y luego elige "Convertir en base de datos" en el menú.
+                </p>
+            </div>
+        </div>
+            
+    </div>
+    
+    
+    
+    
+    
+    
+    
+
+    <div id="back-to-top" onclick="scrollToTop()">
+        <img src="https://bucket.mlcdn.com/a/3336/3336910/images/06e7b897a263640a2ce0a5ca1cdb561f3a0e6ab1.png" alt="Volver arriba" style="width: 40px; height: 40px;" class="dark:brightness-75 dark:hover:brightness-100">
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <script>
+        // JSDoc type declarations for global variables and functions
+        // These help linters and IDEs understand the JavaScript code better.
+
+        /** @type {any} */
+        var Alpine; // For Alpine.js, often attached to window
+
+        /** @type {Window & typeof globalThis & { confetti?: (options?: any) => void; lucide?: { createIcons: () => void; }; tailwind?: { config?: any; } }} */
+        const globalWindow = window;
+
+
+        /** @type { {id: string, name: string, url: string, purpose: string, category: string, timeEstimate: string, instructions: string[], whatToExtract: string, icon: string}[] } */
+        const researchTools = [
+            { id: "startup-ai", name: "Startup.ai", url: "https://startup.ai", purpose: "Generación y evaluación de ideas de startups", category: "Validación de Ideas", timeEstimate: "30-45 minutos", instructions: [ "Visita startup.ai", "Navega por ideas de startups evaluadas por categoría", "Filtra por sectores de comercio electrónico/minorista", "Toma nota de modelos de negocio en tendencia", "Identifica brechas en las ofertas actuales del mercado" ], whatToExtract: "Conceptos de negocio validados, brechas de mercado, sectores en tendencia", icon: "lightbulb" },
+            { id: "validea", name: "Validea.co", url: "https://validea.co", purpose: "Validación de ideas de negocio impulsada por IA", category: "Validación de Ideas", timeEstimate: "20-30 minutos", instructions: [ "Ingresa tu concepto de idea de negocio", "Responde preguntas de validación sobre el mercado objetivo", "Revisa los comentarios y puntuaciones generados por IA", "Toma nota de las mejoras y riesgos sugeridos", "Guarda el informe de validación como referencia" ], whatToExtract: "Puntuaciones de validación, evaluación de riesgos, sugerencias de mejora", icon: "check-circle" },
+            { id: "scira-ai", name: "Scira.ai", url: "https://scira.ai", purpose: "Motor de búsqueda para investigación impulsado por IA", category: "Investigación de Mercado", timeEstimate: "15-20 minutos por búsqueda", instructions: [ "Busca términos específicos de la industria", "Usa filtros avanzados para rango de fechas y tipo de fuente", "Recopila datos y tendencias relevantes del mercado", "Guarda hallazgos importantes con sus fuentes" ], whatToExtract: "Perspectivas de la industria, datos de mercado, información de tendencias", icon: "search" },
+            { id: "perplexity", name: "Perplexity.ai", url: "https://perplexity.ai", purpose: "Investigación en internet con asistencia de IA", category: "Investigación Integral", timeEstimate: "20-30 minutos por tema", instructions: [ "Haz preguntas específicas sobre tu mercado/nicho", "Solicita fuentes y citas", "Continúa con preguntas relacionadas", "Exporta los hallazgos de la investigación", "Verifica la información con fuentes adicionales" ], whatToExtract: "Análisis detallado del mercado, información de la competencia, tendencias de la industria", icon: "brain" },
+            { id: "particl-trends", name: "Particl Trends", url: "https://pitch.com/v/2025-particls-year-to-date-insights-dbckd6/b43ea207-c75e-4423-b07b-101e0e669c2a/", purpose: "Perspectivas y tendencias del mercado acumuladas del año", category: "Análisis de Tendencias", timeEstimate: "25-35 minutos", instructions: [ "Accede a la presentación de perspectivas de Particl", "Revisa las tendencias específicas por categoría", "Toma nota de patrones estacionales y mercados emergentes", "Identifica oportunidades de crecimiento", "Compara con la alineación de tu idea de negocio" ], whatToExtract: "Tendencias del mercado, categorías de crecimiento, perspectivas estacionales", icon: "trending-up" },
+            { id: "answer-the-public", name: "AnswerThePublic", url: "https://answerthepublic.com", purpose: "Investigación de temas y palabras clave", category: "Investigación de Contenido y SEO", timeEstimate: "20-30 minutos", instructions: [ "Ingresa tu palabra clave/nicho principal", "Selecciona tu país/idioma objetivo", "Revisa las preguntas 'Qué', 'Cómo', 'Por qué'", "Toma nota de las consultas de búsqueda de alto volumen", "Exporta datos para la planificación de contenido" ], whatToExtract: "Preguntas de clientes, ideas de contenido, volúmenes de búsqueda", icon: "help-circle" },
+            { id: "semrush", name: "Semrush", url: "https://semrush.com", purpose: "Análisis SEO y de la competencia", category: "Inteligencia Competitiva", timeEstimate: "30-45 minutos", instructions: [ "Ingresa dominios de la competencia", "Analiza sus palabras clave principales", "Revisa sus estrategias publicitarias", "Verifica perfiles de backlinks", "Identifica brechas de contenido" ], whatToExtract: "Palabras clave de la competencia, estrategias publicitarias, posicionamiento en el mercado", icon: "bar-chart" },
+            { id: "glimpse", name: "Glimpse", url: "https://meetglimpse.com/trends", purpose: "Análisis y predicciones de Google Trends", category: "Pronóstico de Tendencias", timeEstimate: "25-35 minutos", instructions: [ "Busca categorías de productos relevantes", "Revisa gráficos de tendencias y predicciones", "Analiza patrones estacionales", "Toma nota de tendencias emergentes vs. declinantes", "Exporta datos de tendencias" ], whatToExtract: "Predicciones de tendencias, patrones estacionales, sincronización con el mercado", icon: "activity" },
+            { id: "answer-socrates", name: "AnswerSocrates", url: "https://answersocrates.com", purpose: "Investigación de palabras clave basada en preguntas", category: "Investigación de Mercado", timeEstimate: "20-25 minutos", instructions: [ "Ingresa tu palabra clave principal", "Revisa las categorías de preguntas", "Analiza los datos de volumen de búsqueda", "Identifica puntos débiles y necesidades", "Guarda preguntas relevantes para la estrategia de contenido" ], whatToExtract: "Puntos débiles de los clientes, oportunidades de contenido, necesidades del mercado", icon: "message-circle" },
+            { id: "particl", name: "Particl.com", url: "https://particl.com", purpose: "Inteligencia de mercado para comercio electrónico", category: "Analítica de E-commerce", timeEstimate: "30-40 minutos", instructions: [ "Busca categorías de productos en tu nicho", "Revisa el tamaño del mercado y los datos de crecimiento", "Analiza métricas de rendimiento de marca", "Toma nota de tendencias y estrategias de precios", "Identifica oportunidades de mercado" ], whatToExtract: "Tamaño del mercado, rendimiento de marca, estrategias de precios", icon: "shopping-cart" },
+            { id: "similarweb", name: "SimilarWeb", url: "https://similarweb.com", purpose: "Análisis de tráfico web y de la competencia", category: "Inteligencia Competitiva", timeEstimate: "25-35 minutos por competidor", instructions: [ "Ingresa URLs de sitios web de la competencia", "Analiza fuentes y volumen de tráfico", "Revisa datos demográficos de la audiencia", "Verifica fuentes de referencia y asociaciones", "Toma nota de canales y estrategias de marketing" ], whatToExtract: "Datos de tráfico, perspectivas de la audiencia, canales de marketing", icon: "globe" },
+            { id: "facebook-insights", name: "Facebook Audience Insights", url: "https://www.facebook.com/business/insights/audience", purpose: "Investigación de audiencias en redes sociales", category: "Análisis de Audiencia", timeEstimate: "30-40 minutos", instructions: [ "Define los criterios de tu audiencia objetivo", "Analiza datos demográficos e intereses", "Revisa 'Me gusta' de páginas y comportamientos", "Toma nota de concentraciones geográficas", "Identifica segmentos de audiencia" ], whatToExtract: "Datos demográficos, intereses, patrones de comportamiento", icon: "users" },
+            { id: "instagram-shopping", name: "Instagram Shopping", url: "https://business.instagram.com/shopping", purpose: "Análisis de tendencias en comercio social", category: "Investigación de Comercio Social", timeEstimate: "20-30 minutos", instructions: [ "Navega por categorías de productos relevantes", "Toma nota de productos y marcas en tendencia", "Analiza estrategias de precios", "Revisa niveles de interacción", "Identifica colaboraciones con influencers" ], whatToExtract: "Tendencias de productos, benchmarks de precios, tasas de interacción", icon: "instagram" },
+            { id: "pinterest-trends", name: "Pinterest Trends", url: "https://trends.pinterest.com", purpose: "Análisis de tendencias de contenido visual y productos", category: "Investigación de Tendencias Visuales", timeEstimate: "20-30 minutos", instructions: [ "Busca categorías relevantes", "Revisa pines y tableros en tendencia", "Analiza patrones de contenido estacional", "Toma nota de tendencias de estilo visual", "Identifica oportunidades de contenido" ], whatToExtract: "Tendencias visuales, patrones estacionales, ideas de contenido", icon: "image" },
+            { id: "amazon-bestsellers", name: "Amazon Best Sellers", url: "https://www.amazon.com/bestsellers", purpose: "Rendimiento de productos y validación de mercado", category: "Investigación de Productos", timeEstimate: "30-45 minutos", instructions: [ "Navega por categorías de productos relevantes", "Toma nota de productos y marcas más vendidos", "Analiza patrones de precios y reseñas", "Verifica características y beneficios de productos", "Identifica brechas de mercado" ], whatToExtract: "Productos principales, datos de precios, preferencias de clientes", icon: "package" },
+            { id: "ebay-trending", name: "eBay Trending", url: "https://www.ebay.com/trending", purpose: "Análisis de tendencias en marketplaces", category: "Investigación de Marketplaces", timeEstimate: "20-30 minutos", instructions: [ "Revisa categorías en tendencia", "Analiza listados vendidos y precios", "Toma nota de estrategias de subasta exitosas", "Verifica variaciones en mercados internacionales", "Identifica categorías de productos emergentes" ], whatToExtract: "Tendencias de mercado, datos de precios, variaciones globales", icon: "gavel" },
+            { id: "etsy-trending", name: "Etsy Trending", url: "https://www.etsy.com/trending", purpose: "Tendencias del mercado artesanal y creativo", category: "Investigación de Nichos de Mercado", timeEstimate: "25-35 minutos", instructions: [ "Navega por búsquedas y productos en tendencia", "Analiza estrategias de tiendas exitosas", "Revisa precios de artículos hechos a mano", "Toma nota de tendencias estacionales y de regalos", "Identifica oportunidades de artesanía y DIY" ], whatToExtract: "Tendencias de nicho, oportunidades creativas, estrategias de precios", icon: "heart" },
+            { id: "chatpdf", name: "ChatPDF", url: "https://chatpdf.com", purpose: "Análisis e investigación de documentos", category: "Investigación de Documentos", timeEstimate: "15-25 minutos por documento", instructions: [ "Sube informes o estudios relevantes de la industria", "Haz preguntas específicas sobre datos de mercado", "Extrae estadísticas y perspectivas clave", "Resume hallazgos importantes", "Cruza referencias con otras fuentes" ], whatToExtract: "Datos de la industria, estadísticas de mercado, perspectivas de investigación", icon: "file-text" },
+            { id: "humata", name: "Humata.ai", url: "https://humata.ai", purpose: "Chat y análisis de documentos impulsado por IA", category: "Inteligencia de Documentos", timeEstimate: "20-30 minutos por documento", instructions: [ "Sube documentos de investigación de mercado", "Haz preguntas específicas sobre los hallazgos", "Solicita resúmenes y perspectivas clave", "Compara múltiples documentos", "Exporta puntos de datos importantes" ], whatToExtract: "Perspectivas de documentos, análisis comparativo, hallazgos clave", icon: "brain" },
+            { id: "aithor", name: "AIThor.com", url: "https://aithor.com", purpose: "Análisis profundo y generación de contenido", category: "Análisis Avanzado", timeEstimate: "30-45 minutos", instructions: [ "Ingresa tus preguntas o datos de investigación", "Solicita un análisis exhaustivo", "Genera informes detallados", "Verifica los hallazgos con fuentes adicionales", "Integra las perspectivas en el plan de negocio" ], whatToExtract: "Perspectivas profundas, informes analíticos, recomendaciones estratégicas", icon: "cpu" }
+        ];
+        
+        /** @type { {id: number, title: string, description: string, tools: string[]}[] } */
+        const researchPhases = [
+            { id: 1, title: "Investigación de Mercado", description: "Comprendiendo el panorama de tu mercado y oportunidades", tools: ["startup-ai", "validea", "scira-ai", "perplexity"] },
+            { id: 2, title: "Identificación de Tendencias y Nichos", description: "Descubriendo oportunidades en tendencia y brechas de mercado", tools: ["particl-trends", "glimpse", "pinterest-trends", "answer-the-public"] },
+            { id: 3, title: "Inteligencia Competitiva", description: "Analizando competidores y posicionamiento en el mercado", tools: ["semrush", "similarweb", "facebook-insights", "instagram-shopping"] },
+            { id: 4, title: "Validación de Producto y Mercado", description: "Validando la demanda del producto y estrategias de precios", tools: ["amazon-bestsellers", "ebay-trending", "etsy-trending", "particl"] },
+            { id: 5, title: "Análisis Avanzado", description: "Investigación profunda y análisis de documentos", tools: ["chatpdf", "humata", "aithor", "answer-socrates"] }
+        ];
+
+        const notionTemplateContent = `# 🚀 Plantilla de Investigación Profunda de E-commerce para Emprendedores
+
+## Visión General del Proyecto
+- **Nombre del Proyecto:** [Nombre de tu idea de negocio/proyecto]
+- **Resumen del Concepto:** [Breve descripción de tu idea de negocio de e-commerce]
+- **Objetivos de la Investigación:** [¿Qué esperas aprender o validar?]
+- **Fecha de Inicio:** [Fecha]
+- **Fecha de Finalización Estimada:** [Fecha]
+
+## Fase 1: Investigación de Mercado (1-2 Semanas)
+### 1.1 Definición del Mercado
+- **Mercado Objetivo Primario:** [Descripción detallada]
+- **Mercado Objetivo Secundario:** [Descripción detallada]
+- **Perfiles de Cliente (Personas):**
+    - **Persona 1:** [Nombre, demografía, psicografía, puntos débiles, objetivos]
+    - **Persona 2:** [Nombre, demografía, psicografía, puntos débiles, objetivos]
+- **Herramientas Utilizadas:** Startup.ai, Validea.co
+
+### 1.2 Tamaño y Potencial del Mercado
+- **Tamaño Actual del Mercado (TAM, SAM, SOM):** [Datos y fuentes]
+- **Tasa de Crecimiento del Mercado:** [Datos y fuentes]
+- **Proyecciones Futuras:** [Datos y fuentes]
+- **Herramientas Utilizadas:** Scira.ai, Perplexity.ai
+
+### 1.3 Tendencias y Dinámicas del Mercado
+- **Tendencias Clave Actuales:** [Listar y describir]
+- **Impulsores del Mercado:** [Factores que influyen en el crecimiento]
+- **Restricciones del Mercado:** [Factores que limitan el crecimiento]
+- **Análisis FODA (Fortalezas, Oportunidades, Debilidades, Amenazas) del Mercado:**
+    - **Fortalezas:**
+    - **Debilidades:**
+    - **Oportunidades:**
+    - **Amenazas:**
+- **Herramientas Utilizadas:** Scira.ai, Perplexity.ai, Particl Trends
+
+## Fase 2: Identificación de Tendencias y Nichos (1-2 Semanas)
+### 2.1 Identificación de Tendencias Emergentes
+- **Tendencias de Productos/Servicios:** [Listar y describir]
+- **Tendencias de Comportamiento del Consumidor:** [Listar y describir]
+- **Tendencias Tecnológicas Relevantes:** [Listar y describir]
+- **Herramientas Utilizadas:** Particl Trends, Glimpse, Pinterest Trends
+
+### 2.2 Descubrimiento de Nichos
+- **Posibles Nichos de Mercado:** [Listar ideas de nicho]
+- **Análisis de Rentabilidad del Nicho:** [Evaluación de cada nicho]
+- **Análisis de Competencia del Nicho:** [Evaluación de cada nicho]
+- **Nicho(s) Seleccionado(s):** [Justificación]
+- **Herramientas Utilizadas:** AnswerThePublic, Google Trends (via Glimpse)
+
+### 2.3 Validación de Demanda del Nicho
+- **Volumen de Búsqueda de Palabras Clave:** [Datos y palabras clave principales]
+- **Análisis de Buzz en Redes Sociales:** [Hallazgos y plataformas]
+- **Encuestas/Sondeos Iniciales (si aplica):** [Resultados]
+- **Herramientas Utilizadas:** AnswerThePublic, Semrush (para volumen de palabras clave)
+
+## Fase 3: Análisis Competitivo (1-2 Semanas)
+### 3.1 Identificación de Competidores
+- **Competidores Directos:** [Lista con URLs]
+- **Competidores Indirectos:** [Lista con URLs]
+- **Competidores Emergentes:** [Lista con URLs]
+- **Herramientas Utilizadas:** Semrush, SimilarWeb, Google Search
+
+### 3.2 Perfil del Competidor
+*(Repetir para cada competidor clave)*
+- **Nombre del Competidor:**
+- **Visión General:**
+- **Productos/Servicios Ofrecidos:**
+- **Fortalezas:**
+- **Debilidades:**
+- **Estrategia de Precios:**
+- **Posicionamiento en el Mercado:**
+- **Público Objetivo:**
+- **Canales de Marketing Clave:**
+- **Tráfico Web Estimado y Fuentes:** [Datos de SimilarWeb]
+- **Presencia en Redes Sociales:** [Plataformas, seguidores, engagement]
+- **Reseñas y Sentimiento del Cliente:**
+- **Herramientas Utilizadas:** Semrush, SimilarWeb, Facebook Audience Insights (para análisis de audiencia de competidores si es posible), Instagram Shopping (para ver su presencia)
+
+### 3.3 Mapeo Competitivo
+- **Matriz de Características:** [Tabla comparando características clave]
+- **Mapa de Posicionamiento:** [Gráfico 2x2 basado en atributos clave, ej. precio vs. calidad]
+- **Análisis de Brechas:** [Oportunidades no cubiertas por los competidores]
+
+## Fase 4: Validación de Producto y Mercado (1-2 Semanas)
+### 4.1 Definición de la Propuesta de Valor Única (PVU)
+- **PVU Borrador:** [Tu propuesta de valor]
+- **Cómo se Diferencia:** [Comparación con competidores]
+
+### 4.2 Validación de Producto-Mercado Fit
+- **Encuestas de Interés del Producto:** [Diseño y resultados]
+- **Entrevistas con Clientes Potenciales:** [Hallazgos clave]
+- **Pruebas de Concepto (si aplica):** [Metodología y resultados]
+- **Herramientas Utilizadas:** Formularios de encuestas (Google Forms, Typeform), Particl.com (para benchmarks)
+
+### 4.3 Estrategia de Precios y Pruebas
+- **Análisis de Precios de Competidores:** [Resumen]
+- **Modelos de Precios Potenciales:** [Listar opciones]
+- **Pruebas de Sensibilidad al Precio (ej. Encuesta Van Westendorp):** [Resultados]
+- **Estrategia de Precios Seleccionada:** [Justificación]
+- **Herramientas Utilizadas:** Amazon Best Sellers, eBay Trending, Etsy Trending (para benchmarks de precios en marketplaces)
+
+### 4.4 Recopilación de Retroalimentación Temprana
+- **Canales de Retroalimentación:** [Ej. Grupos focales, comunidades online]
+- **Resumen de la Retroalimentación:** [Positiva, negativa, sugerencias]
+- **Iteraciones del Producto/Concepto Basadas en la Retroalimentación:**
+
+## Fase 5: Análisis Avanzado y Estrategia (1 Semana)
+### 5.1 Consolidación de Hallazgos
+- **Resumen de Hallazgos Clave por Fase:**
+- **Principales Perspectivas Accionables:**
+- **Herramientas Utilizadas:** ChatPDF, Humata.ai (para analizar informes y documentos recopilados)
+
+### 5.2 Evaluación de Riesgos y Plan de Mitigación
+- **Riesgos Identificados:** [Listar]
+- **Probabilidad e Impacto:** [Para cada riesgo]
+- **Estrategias de Mitigación:** [Para cada riesgo]
+
+### 5.3 Desarrollo de Estrategia de Salida al Mercado (Go-To-Market)
+- **Canales de Marketing y Ventas Seleccionados:** [Justificación]
+- **Mensajería y Posicionamiento Clave:**
+- **Estrategia de Lanzamiento Inicial:**
+- **KPIs para el Lanzamiento y Post-Lanzamiento:**
+- **Herramientas Utilizadas:** AIThor.com (para análisis profundo y generación de ideas estratégicas), AnswerSocrates (para refinar mensajes basados en preguntas de clientes)
+
+### 5.4 Documentación Final y Próximos Pasos
+- **Informe Final de Investigación de Mercado:** [Enlace o adjunto]
+- **Presentación Resumen:** [Enlace o adjunto]
+- **Próximos Pasos Accionables:** [Lista de tareas]
+
+## Apéndice
+- **Fuentes de Datos:** [Lista de todos los informes, artículos, sitios web consultados]
+- **Transcripciones de Entrevistas/Encuestas:** [Si aplica]
+- **Resultados Detallados de Herramientas:** [Capturas de pantalla o exportaciones importantes]
+
+---
+*Esta plantilla está diseñada para ser completa. Ajusta las secciones y la profundidad según las necesidades específicas de tu proyecto y los recursos disponibles.*
+`; 
+
+        /** @type {Set<string>} */
+        let completedTools = new Set();
+        /** @type {'grid' | 'list'} */
+        let currentViewMode = 'grid';
+        /** @type {string} */
+        let activeSection = 'overview';
+        
+        const htmlEl = document.documentElement;
+        const themeColorMeta = document.getElementById('theme-color-meta');
+
+        /** @param {string} theme */
+        function applyTheme(theme) {
+            const sunIcons = document.querySelectorAll('.theme-icon-sun');
+            const moonIcons = document.querySelectorAll('.theme-icon-moon');
+            const desktopThemeText = document.getElementById('theme-toggle-desktop-text');
+            const mobileThemeText = document.getElementById('theme-toggle-mobile-text');
+
+            if (theme === 'dark') {
+                htmlEl.classList.add('dark');
+                sunIcons.forEach(icon => icon.classList.remove('hidden'));
+                moonIcons.forEach(icon => icon.classList.add('hidden'));
+                if (desktopThemeText) desktopThemeText.textContent = 'Cambiar a Claro';
+                if (mobileThemeText) mobileThemeText.textContent = 'Cambiar a Claro';
+                if (themeColorMeta) themeColorMeta.content = '#0f172a'; // slate-900
+            } else {
+                htmlEl.classList.remove('dark');
+                sunIcons.forEach(icon => icon.classList.add('hidden'));
+                moonIcons.forEach(icon => icon.classList.remove('hidden'));
+                if (desktopThemeText) desktopThemeText.textContent = 'Cambiar a Oscuro';
+                if (mobileThemeText) mobileThemeText.textContent = 'Cambiar a Oscuro';
+                if (themeColorMeta) themeColorMeta.content = '#ffffff';
             }
-            
-            html += '</div>';
-        });
+            localStorage.setItem('theme', theme);
+            callLucideCreateIcons(); 
+        }
+
+        function initTheme() {
+            const storedTheme = localStorage.getItem('theme');
+            const preferredTheme = globalWindow.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const currentTheme = storedTheme || preferredTheme;
+            applyTheme(currentTheme);
+        }
+
+        function toggleTheme() {
+            const newTheme = htmlEl.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(newTheme);
+        }
         
-        preview.innerHTML = html;
-        updatePreviewStyles();
-    }
-    
-    function switchPreviewTab(tabIndex) {
-        state.activePreviewTab = tabIndex;
-        state.activeFAQ = null; // Reset active FAQ when switching tabs
-        
-        document.querySelectorAll('.faq-tab').forEach((tab, index) => {
-            tab.classList.toggle('active', index === tabIndex);
-        });
-        document.querySelectorAll('.faq-content').forEach((content, index) => {
-            content.classList.toggle('active', index === tabIndex);
-        });
-    }
-    
-    function togglePreviewFAQ(tabIndex, faqIndex) {
-        const isCurrentlyActive = state.activeFAQ && 
-                                 state.activeFAQ.tabIndex === tabIndex && 
-                                 state.activeFAQ.faqIndex === faqIndex;
-        
-        // Close all FAQs first
-        document.querySelectorAll('.faq-question').forEach(q => {
-            q.classList.remove('active');
-            q.style.background = '#f8fafc';
-            q.style.color = '#374151';
-            const qIcon = q.querySelector('.faq-icon');
-            if (qIcon) {
-                qIcon.style.transform = 'rotate(0deg)';
-                qIcon.style.color = state.settings.primaryColor;
+        function callLucideCreateIcons() {
+            if (globalWindow.lucide && typeof globalWindow.lucide.createIcons === 'function') {
+                globalWindow.lucide.createIcons();
             }
-        });
-        document.querySelectorAll('.faq-answer').forEach(a => {
-            a.classList.remove('active');
-            a.style.display = 'none';
-        });
+        }
         
-        if (!isCurrentlyActive) {
-            // Open the clicked FAQ
-            state.activeFAQ = { tabIndex, faqIndex };
+        function init() {
+            initTheme(); 
+            const saved = localStorage.getItem('completedTools');
+            if (saved) completedTools = new Set(JSON.parse(saved));
             
-            const button = event.target.closest('.faq-question');
-            const answer = document.querySelector(`.faq-answer[data-tab="${tabIndex}"][data-faq="${faqIndex}"]`);
-            const icon = button.querySelector('.faq-icon');
-            
-            button.classList.add('active');
-            button.style.background = state.settings.primaryColor;
-            button.style.color = 'white';
-            answer.classList.add('active');
-            answer.style.display = 'block';
-            if (icon) {
-                icon.style.transform = 'rotate(180deg)';
-                icon.style.color = 'white';
+            callLucideCreateIcons();
+            showSection('overview');
+            renderToolsDirectory(); // Initial render for tools directory
+             // Set initial view mode for tools directory filters (buttons)
+            setViewMode(currentViewMode);
+
+
+            const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            if(themeToggleDesktop) themeToggleDesktop.addEventListener('click', toggleTheme);
+            if(themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+        }
+
+        function saveProgress() {
+            localStorage.setItem('completedTools', JSON.stringify(Array.from(completedTools)));
+        }
+
+        /** @param {string} sectionId */
+        function showSection(sectionId) {
+            activeSection = sectionId;
+            document.querySelectorAll('.content-section').forEach(section => section.classList.add('hidden'));
+            updateNavigationActive(sectionId);
+
+            const overviewSection = document.getElementById('overview-section');
+            const toolsDirectorySection = document.getElementById('tools-directory-section');
+            const researchSection = document.getElementById('research-section');
+
+            if (sectionId === 'overview' && overviewSection) {
+                overviewSection.classList.remove('hidden');
+            } else if (sectionId === 'tools-directory' && toolsDirectorySection) {
+                toolsDirectorySection.classList.remove('hidden');
+                renderToolsDirectory();
+            } else if (researchSection) { // Covers all research phase sections
+                researchSection.classList.remove('hidden');
+                renderResearchSection(sectionId);
             }
-        } else {
-            // Close the FAQ
-            state.activeFAQ = null;
+            globalWindow.scrollTo(0,0);
         }
-    }
-    
-    function updatePreviewStyles() {
-        const preview = document.getElementById('preview-widget');
-        const { primaryColor, fontSize, spacing, borderRadius, borderWidth } = state.settings;
-        
-        preview.style.setProperty('--primary-color', primaryColor);
-        preview.style.setProperty('--font-size', fontSize + 'px');
-        preview.style.setProperty('--spacing', spacing + 'px');
-        preview.style.setProperty('--border-radius', borderRadius + 'px');
-        preview.style.setProperty('--border-width', borderWidth + 'px');
-    }
-    
-    // Customization Functions
-    function toggleCustomization() {
-        const sidebar = document.getElementById('customization-sidebar');
-        const overlay = document.querySelector('.sidebar-overlay');
-        const isOpen = sidebar.classList.contains('open');
-        
-        if (isOpen) {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
-        } else {
-            sidebar.classList.add('open');
-            overlay.classList.add('active');
-        }
-    }
-    
-    function updatePrimaryColor(color) {
-        state.settings.primaryColor = color;
-        document.getElementById('custom-color').value = color;
-        updatePreview();
-    }
-    
-    function updateFontSize(size) {
-        state.settings.fontSize = parseInt(size);
-        document.getElementById('font-size-value').textContent = size;
-        updatePreview();
-    }
-    
-    function updateSpacing(spacing) {
-        state.settings.spacing = parseInt(spacing);
-        document.getElementById('spacing-value').textContent = spacing;
-        updatePreview();
-    }
-    
-    function updateBorderRadius(radius) {
-        state.settings.borderRadius = parseInt(radius);
-        document.getElementById('border-radius-value').textContent = radius;
-        updatePreview();
-    }
-    
-    function updateBorderWidth(width) {
-        state.settings.borderWidth = parseInt(width);
-        document.getElementById('border-width-value').textContent = width;
-        updatePreview();
-    }
-    
-    function setDisplayStyle(style) {
-        state.settings.displayStyle = style;
-        state.activeFAQ = null; // Reset active FAQ when changing display style
-        updatePreview();
-    }
-    
-    function resetToDefaults() {
-        state.settings = {
-            primaryColor: '#DF1783',
-            displayStyle: 'accordion',
-            fontSize: 16,
-            spacing: 16,
-            borderRadius: 8,
-            borderWidth: 1
-        };
-        
-        state.activeFAQ = null;
-        updateCustomizationUI();
-        updatePreview();
-        
-        // Reset color swatch selection
-        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-        document.querySelector('.color-swatch[data-color="#DF1783"]').classList.add('active');
-        
-        // Reset style options
-        document.querySelectorAll('.style-option').forEach(option => {
-            option.classList.toggle('active', option.dataset.style === 'accordion');
-        });
-    }
-    
-    function updateCustomizationUI() {
-        const { primaryColor, fontSize, spacing, borderRadius, borderWidth, displayStyle } = state.settings;
-        
-        document.getElementById('custom-color').value = primaryColor;
-        document.getElementById('font-size-slider').value = fontSize;
-        document.getElementById('font-size-value').textContent = fontSize;
-        document.getElementById('spacing-slider').value = spacing;
-        document.getElementById('spacing-value').textContent = spacing;
-        document.getElementById('border-radius-slider').value = borderRadius;
-        document.getElementById('border-radius-value').textContent = borderRadius;
-        document.getElementById('border-width-slider').value = borderWidth;
-        document.getElementById('border-width-value').textContent = borderWidth;
-        
-        document.querySelectorAll('.style-option').forEach(option => {
-            option.classList.toggle('active', option.dataset.style === displayStyle);
-        });
-    }
-    
-    // Code Generation
-    function generateCode() {
-        const code = generateEmbeddableCode();
-        document.getElementById('code-content').textContent = code;
-        document.getElementById('code-modal').style.display = 'block';
-    }
-    
-    function generateEmbeddableCode() {
-        const { primaryColor, fontSize, spacing, borderRadius, borderWidth, displayStyle } = state.settings;
-        const tabsWithFAQs = state.tabs.filter(tab => tab.faqs.length > 0);
-        
-        if (tabsWithFAQs.length === 0) {
-            return '<!-- No hay contenido FAQ para generar -->';
-        }
-        
-        let html = `<!-- FAQ Widget - Generated by FAQ Builder --> 
-<div class="faq-widget" style="max-width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: ${fontSize}px;">`;
-        
-        // Add tabs if multiple sections
-        if (tabsWithFAQs.length > 1) {
-            html += `
-    <div class="faq-tabs" style="display: flex; border-bottom: 2px solid #e2e8f0; margin-bottom: 1rem; overflow-x: auto;">`;
+
+        /** @param {string} sectionId */
+        function updateNavigationActive(sectionId) {
+            const commonClassesRemove = ['active', 'bg-pink-50', 'dark:bg-pink-900/30', 'text-pink-700', 'dark:text-pink-400'];
+            const commonClassesAdd = ['text-gray-700', 'dark:text-slate-300'];
             
-            tabsWithFAQs.forEach((tab, index) => {
-                html += `
-        <button class="faq-tab ${index === 0 ? 'active' : ''}" 
-                onclick="switchFAQTab(${index})"
-                style="padding: 10px 20px; border: none; background: none; cursor: pointer; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; ${index === 0 ? `border-bottom-color: ${primaryColor}; color: ${primaryColor};` : ''}" 
-                onmouseover="this.style.background='#f8fafc'"
-                onmouseout="this.style.background='none'">
-            ${escapeHtml(tab.name)}
-        </button>`;
+            document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(item => {
+                item.classList.remove(...commonClassesRemove);
+                item.classList.add(...commonClassesAdd);
             });
             
-            html += `
-    </div>`;
+            // Handle specific research phase sections for nav highlighting
+            let navSectionId = sectionId;
+            if (['market-investigation', 'trend-identification', 'competitive-analysis', 'product-validation', 'advanced-analysis'].includes(sectionId)) {
+                // Keep navSectionId as is for these specific phases for highlighting individual nav items
+            } else if (sectionId !== 'overview' && sectionId !== 'tools-directory') {
+                // This case should ideally not happen if sectionId is always one of the defined ones.
+                // Default to overview if something unexpected.
+                navSectionId = 'overview'; 
+            }
+
+
+            const navSelectors = [
+                `.nav-item[onclick*="showSection('${navSectionId}')"]`,
+                `.mobile-nav-item[onclick*="showSection('${navSectionId}')"]`
+            ];
+
+            navSelectors.forEach(selector => {
+                const activeItem = document.querySelector(selector);
+                if (activeItem) {
+                    activeItem.classList.remove(...commonClassesAdd);
+                    activeItem.classList.add('active', 'bg-pink-50', 'dark:bg-pink-900/30', 'text-pink-700', 'dark:text-pink-400');
+                }
+            });
+        }
+
+        /** @param {string} sectionId */
+        function renderResearchSection(sectionId) {
+            const phaseMapping = { 
+                'market-investigation': 1, 
+                'trend-identification': 2, 
+                'competitive-analysis': 3, 
+                'product-validation': 4, // Corrected mapping
+                'advanced-analysis': 5 
+            };
+            // @ts-ignore
+            const currentPhaseId = phaseMapping[sectionId];
+            if (!currentPhaseId) return; // Should not happen if sectionId is valid
+            renderProgressChecklist();
+            renderResearchAccordion(currentPhaseId);
+        }
+
+        function renderProgressChecklist() {
+            const container = document.getElementById('progress-checklist');
+            if (!container) return;
+            container.innerHTML = ''; // Clear previous content
+            researchPhases.forEach(phase => {
+                const phaseTools = phase.tools.map(toolId => researchTools.find(t => t.id === toolId)).filter(Boolean); // Filter out undefined if toolId not found
+                const completedCount = phaseTools.filter(tool => tool && completedTools.has(tool.id)).length;
+                const progressPercent = phaseTools.length > 0 ? Math.round((completedCount / phaseTools.length) * 100) : 0;
+                
+                const phaseElement = document.createElement('div');
+                phaseElement.className = 'border border-gray-200 dark:border-slate-700 rounded-lg p-4';
+                phaseElement.innerHTML = `
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-semibold text-gray-900 dark:text-slate-100 text-sm">${phase.title}</h3>
+                        <span class="text-xs text-gray-500 dark:text-slate-400">${completedCount}/${phaseTools.length}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2 mb-3">
+                        <div class="progress-bar bg-pink-600 h-2 rounded-full" style="width: ${progressPercent}%"></div>
+                    </div>
+                    <div class="space-y-2">
+                        ${phaseTools.map(tool => tool ? ` <!-- Check if tool exists -->
+                            <label class="flex items-center text-xs cursor-pointer">
+                                <input type="checkbox" ${completedTools.has(tool.id) ? 'checked' : ''} onchange="toggleToolComplete('${tool.id}')"
+                                    class="mr-2 h-3 w-3 text-pink-600 focus:ring-pink-500 border-gray-300 dark:border-slate-600 rounded dark:bg-slate-700 dark:focus:ring-offset-slate-800">
+                                <span class="${completedTools.has(tool.id) ? 'line-through text-gray-500 dark:text-slate-500' : 'text-gray-700 dark:text-slate-300'}">${tool.name}</span>
+                            </label>` : '').join('')}
+                    </div>`;
+                container.appendChild(phaseElement);
+            });
+            updateOverallProgress();
+        }
+
+        /** @param {number} currentPhaseId */
+        function renderResearchAccordion(currentPhaseId) {
+            const container = document.getElementById('research-accordion');
+            if (!container) return;
+            container.innerHTML = ''; // Clear previous content
+            researchPhases.forEach(phase => {
+                const isActive = phase.id === currentPhaseId;
+                const phaseTools = phase.tools.map(toolId => researchTools.find(t => t.id === toolId)).filter(Boolean); // Filter out undefined
+
+                const accordionElement = document.createElement('div');
+                accordionElement.className = 'bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700';
+                accordionElement.innerHTML = `
+                    <div class="accordion-header p-6 cursor-pointer" onclick="toggleAccordion(${phase.id})">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-pink-100 dark:bg-pink-900/50 rounded-full flex items-center justify-center mr-4">
+                                    <span class="text-pink-600 dark:text-pink-400 font-bold text-sm">${phase.id}</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100">${phase.title}</h3>
+                                    <p class="text-gray-600 dark:text-slate-400 text-sm">${phase.description}</p>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 dark:text-slate-500 accordion-icon transition-transform ${isActive ? 'rotate-180' : ''}"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content ${isActive ? 'active' : ''}" id="accordion-${phase.id}">
+                        <div class="p-6 pt-0">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                ${phaseTools.map(tool => tool ? renderToolCard(tool) : '').join('')} <!-- Check if tool exists -->
+                            </div>
+                        </div>
+                    </div>`;
+                container.appendChild(accordionElement);
+            });
+            callLucideCreateIcons(); // Re-render icons after updating accordion
         }
         
-        // Add content for each tab
-        tabsWithFAQs.forEach((tab, tabIndex) => {
-            html += `
-    <div class="faq-content ${tabIndex === 0 ? 'active' : ''}" data-tab="${tabIndex}" style="display: ${tabIndex === 0 ? 'block' : 'none'};">`;
+        /** @param {NonNullable<typeof researchTools[0]>} tool */
+        function renderToolCard(tool) { // For research accordion
+            const isCompleted = completedTools.has(tool.id);
+            return `
+                <div class="tool-card bg-gray-50 dark:bg-slate-800/60 rounded-lg p-4 border border-gray-200 dark:border-slate-700 ${isCompleted ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' : ''}">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-white dark:bg-slate-700 rounded-lg flex items-center justify-center mr-3 border dark:border-slate-600">
+                                <i data-lucide="${tool.icon}" class="w-4 h-4 text-gray-600 dark:text-slate-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-slate-100 text-sm">${tool.name}</h4>
+                                <p class="text-xs text-gray-500 dark:text-slate-400">${tool.category}</p>
+                            </div>
+                        </div>
+                        ${isCompleted ? '<i data-lucide="check-circle" class="w-5 h-5 text-green-600 dark:text-green-400"></i>' : ''}
+                    </div>
+                    <p class="text-xs text-gray-600 dark:text-slate-400 mb-3">${tool.purpose}</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-slate-400 mb-3"><span>⏱️ ${tool.timeEstimate}</span></div>
+                    <div class="flex gap-2">
+                        <button onclick="openToolModal('${tool.id}')" class="flex-1 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-slate-300 text-xs font-medium py-2 px-3 rounded transition-colors">📋 Instrucciones</button>
+                        <a href="${tool.url}" target="_blank" onclick="markToolAsCompleted('${tool.id}')" class="flex-1 bg-pink-600 hover:bg-pink-700 text-white text-xs font-medium py-2 px-3 rounded transition-colors text-center">🚀 Usar Herramienta</a>
+                    </div>
+                </div>`;
+        }
+
+        function renderToolsDirectory() {
+            const container = document.getElementById('tools-grid');
+            if (!container) return;
+            const searchTermInput = /** @type {HTMLInputElement | null} */ (document.getElementById('tool-search'));
+            const categoryFilterSelect = /** @type {HTMLSelectElement | null} */ (document.getElementById('category-filter'));
+            const searchTerm = searchTermInput ? searchTermInput.value.toLowerCase() : '';
+            const categoryFilter = categoryFilterSelect ? categoryFilterSelect.value : '';
+
+            let filteredToolsArr = researchTools.filter(tool => {
+                const matchesSearch = tool.name.toLowerCase().includes(searchTerm) || 
+                                      tool.purpose.toLowerCase().includes(searchTerm) || 
+                                      tool.category.toLowerCase().includes(searchTerm);
+                const matchesCategory = !categoryFilter || tool.category === categoryFilter;
+                return matchesSearch && matchesCategory;
+            });
+
+            if (currentViewMode === 'grid') {
+                container.className = 'grid grid-cols-1 md:grid-cols-2 gap-6';
+                container.innerHTML = filteredToolsArr.map(tool => renderDetailedToolCard(tool)).join('');
+            } else {
+                container.className = 'space-y-4';
+                container.innerHTML = filteredToolsArr.map(tool => renderListToolCard(tool)).join('');
+            }
+            callLucideCreateIcons();
+        }
+
+        /** @param {NonNullable<typeof researchTools[0]>} tool */
+        function renderDetailedToolCard(tool) { // For tools directory - grid view
+            const isCompleted = completedTools.has(tool.id);
+            return `
+                <div class="tool-card bg-white dark:bg-slate-800 rounded-lg p-6 border border-gray-200 dark:border-slate-700 shadow-sm ${isCompleted ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' : ''}">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-100 dark:bg-slate-700 rounded-lg flex items-center justify-center mr-4">
+                                <i data-lucide="${tool.icon}" class="w-6 h-6 text-gray-600 dark:text-slate-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 dark:text-slate-100">${tool.name}</h3>
+                                <p class="text-sm text-gray-500 dark:text-slate-400">${tool.category}</p>
+                            </div>
+                        </div>
+                        ${isCompleted ? '<i data-lucide="check-circle" class="w-6 h-6 text-green-600 dark:text-green-400"></i>' : ''}
+                    </div>
+                    <p class="text-gray-600 dark:text-slate-400 text-sm mb-4">${tool.purpose}</p>
+                    <div class="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-4"><i data-lucide="clock" class="w-4 h-4 mr-2"></i><span>${tool.timeEstimate}</span></div>
+                    <div class="flex gap-3">
+                        <button onclick="openToolModal('${tool.id}')" class="flex-1 border border-gray-300 dark:border-slate-600 hover:border-gray-400 dark:hover:border-slate-500 text-gray-700 dark:text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors text-sm">📋 Ver Instrucciones</button>
+                        <a href="${tool.url}" target="_blank" onclick="markToolAsCompleted('${tool.id}')" class="flex-1 bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm text-center">🚀 Usar Herramienta</a>
+                    </div>
+                </div>`;
+        }
+
+        /** @param {NonNullable<typeof researchTools[0]>} tool */
+        function renderListToolCard(tool) { // For tools directory - list view
+            const isCompleted = completedTools.has(tool.id);
+            return `
+                <div class="tool-card bg-white dark:bg-slate-800 rounded-lg p-4 border border-gray-200 dark:border-slate-700 shadow-sm flex items-center justify-between ${isCompleted ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' : ''}">
+                    <div class="flex items-center flex-1">
+                        <div class="w-10 h-10 bg-gray-100 dark:bg-slate-700 rounded-lg flex items-center justify-center mr-4">
+                            <i data-lucide="${tool.icon}" class="w-5 h-5 text-gray-600 dark:text-slate-400"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-bold text-gray-900 dark:text-slate-100">${tool.name}</h3>
+                                ${isCompleted ? '<i data-lucide="check-circle" class="w-4 h-4 text-green-600 dark:text-green-400"></i>' : ''}
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-slate-400 mb-1">${tool.purpose}</p>
+                            <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-slate-400">
+                                <span class="bg-gray-100 dark:bg-slate-700 px-2 py-1 rounded">${tool.category}</span>
+                                <span>⏱️ ${tool.timeEstimate}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 ml-4">
+                        <button onclick="openToolModal('${tool.id}')" class="border border-gray-300 dark:border-slate-600 hover:border-gray-400 dark:hover:border-slate-500 text-gray-700 dark:text-slate-300 font-medium py-2 px-3 rounded-lg transition-colors text-sm">📋 Instrucciones</button>
+                        <a href="${tool.url}" target="_blank" onclick="markToolAsCompleted('${tool.id}')" class="bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-3 rounded-lg transition-colors text-sm">🚀 Usar Herramienta</a>
+                    </div>
+                </div>`;
+        }
+
+        /** @param {string} toolId */
+        function openToolModal(toolId) {
+            const tool = researchTools.find(t => t.id === toolId);
+            if (!tool) return;
+            const modal = document.getElementById('tool-modal');
+            const titleEl = document.getElementById('modal-title');
+            const contentEl = document.getElementById('modal-content');
+            if (modal && titleEl && contentEl) {
+                titleEl.textContent = tool.name;
+                contentEl.innerHTML = `
+                    <div class="space-y-6">
+                        <div><h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">🎯 Propósito</h3><p>${tool.purpose}</p></div>
+                        <div><h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">⏱️ Tiempo Estimado</h3><p>${tool.timeEstimate}</p></div>
+                        <div><h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">📋 Instrucciones Paso a Paso</h3><ol class="list-decimal list-inside space-y-2">${tool.instructions.map(instruction => `<li>${instruction}</li>`).join('')}</ol></div>
+                        <div><h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">📊 Qué Extraer</h3><p>${tool.whatToExtract}</p></div>
+                        <div class="border-t border-gray-200 dark:border-slate-700 pt-4">
+                            <a href="${tool.url}" target="_blank" onclick="markToolAsCompleted('${tool.id}'); closeModal();" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-medium py-3 px-4 rounded-lg transition-colors inline-block text-center">🚀 Empezar a Usar ${tool.name}</a>
+                        </div>
+                    </div>`;
+                modal.classList.remove('hidden');
+                callLucideCreateIcons();
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('tool-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        /** @param {string} toolId */
+        function markToolAsCompleted(toolId) {
+            completedTools.add(toolId);
+            saveProgress();
+            updateUIAfterProgress();
+        }
+
+        /** @param {string} toolId */
+        function toggleToolComplete(toolId) {
+            if (completedTools.has(toolId)) completedTools.delete(toolId);
+            else completedTools.add(toolId);
+            saveProgress();
+            updateUIAfterProgress();
+        }
+
+        function updateUIAfterProgress() {
+            // Re-render the current view (research section or tools directory)
+            if (activeSection !== 'overview' && activeSection !== 'tools-directory') {
+                renderResearchSection(activeSection); 
+            } else if (activeSection === 'tools-directory') {
+                renderToolsDirectory();
+            }
+             updateOverallProgress(); // Always update overall progress bar
+        }
+        
+        if (typeof globalWindow.confetti === 'undefined') {
+            const confettiScript = document.createElement('script');
+            confettiScript.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+            document.head.appendChild(confettiScript);
+        }
+
+        function updateOverallProgress() {
+            const totalTools = researchTools.length;
+            const completedCount = completedTools.size;
+            const progressPercent = totalTools > 0 ? Math.round((completedCount / totalTools) * 100) : 0;
+            const progressBar = /** @type {HTMLElement | null} */ (document.getElementById('overall-progress-bar'));
+            const progressText = document.getElementById('overall-progress-text');
+
+            if (progressBar) {
+                progressBar.style.width = `${progressPercent}%`;
+                if (progressPercent === 100 && !progressBar.classList.contains('celebrated')) {
+                    progressBar.classList.add('celebrated'); // Mark as celebrated to avoid multiple confetti
+                    triggerConfetti();
+                } else if (progressPercent < 100) {
+                    progressBar.classList.remove('celebrated'); // Reset if progress drops
+                }
+            }
+            if (progressText) progressText.textContent = `${progressPercent}%`;
+        }
+
+        function triggerConfetti() {
+            if (typeof globalWindow.confetti === 'function') {
+                globalWindow.confetti({ particleCount: 400, spread: 155, origin: { y: 0.6 }, colors: ['#ff5e5e', '#ffd166', '#06d6a0', '#118ab2'] });
+                setTimeout(() => { if (globalWindow.confetti) globalWindow.confetti({ particleCount: 200, angle: 60, spread: 155, origin: { x: 0 } }) }, 250);
+                setTimeout(() => { if (globalWindow.confetti) globalWindow.confetti({ particleCount: 200, angle: 120, spread: 155, origin: { x: 1 } }) }, 400);
+            } else {
+                // Fallback or retry if confetti not loaded yet
+                setTimeout(triggerConfetti, 100); 
+            }
+        }
+
+        /** @param {number} phaseId */
+        function toggleAccordion(phaseId) {
+            const content = document.getElementById(`accordion-${phaseId}`);
+            if (!content) return;
+            const header = /** @type {HTMLElement | null} */ (content.previousElementSibling); // Get the header element
+            const icon = header ? header.querySelector('.accordion-icon') : null; // Get icon within the header
             
-            if (displayStyle === 'accordion') {
-                html += `
-        <div class="faq-accordion" style="border: ${borderWidth}px solid #e2e8f0; border-radius: ${borderRadius}px; overflow: hidden;">`;
-                
-                tab.faqs.forEach((faq, faqIndex) => {
-                    html += `
-            <button class="faq-question" 
-                    onclick="toggleFAQ(${tabIndex}, ${faqIndex})"
-                    style="background: #f8fafc; color: #374151; border: none; padding: ${spacing}px; width: 100%; text-align: left; cursor: pointer; font-weight: 500; border-bottom: ${borderWidth}px solid #e2e8f0; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: ${fontSize}px;" 
-                    onmouseover="if(!this.classList.contains('active')) { this.style.background='#f1f5f9' }"
-                    onmouseout="if(!this.classList.contains('active')) { this.style.background='#f8fafc' }">
-                ${escapeHtml(faq.question)}
-                <span class="faq-icon" style="transition: transform 0.2s; color: ${primaryColor};">▼</span>
-            </button>
-            <div class="faq-answer" data-tab="${tabIndex}" data-faq="${faqIndex}" 
-                 style="padding: ${spacing}px; display: none; background: white; border-bottom: ${borderWidth}px solid #e2e8f0; font-size: ${fontSize}px; color: #374151;">
-                ${escapeHtml(faq.answer)}
-            </div>`;
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                 if (icon && icon instanceof HTMLElement) icon.style.transform = 'rotate(0deg)'; // Reset icon
+            } else {
+                // Optional: Close other accordions
+                document.querySelectorAll('.accordion-content.active').forEach(acc => {
+                    acc.classList.remove('active');
+                    const otherHeader = /** @type {HTMLElement | null} */ (acc.previousElementSibling);
+                    const otherIcon = otherHeader ? otherHeader.querySelector('.accordion-icon') : null;
+                    if (otherIcon && otherIcon instanceof HTMLElement) otherIcon.style.transform = 'rotate(0deg)';
                 });
-                
-                html += `
-        </div>`;
-            } else if (displayStyle === 'card') {
-                html += `
-        <div class="faq-cards" style="display: flex; flex-wrap: wrap; gap: ${spacing}px; padding: ${spacing}px;">`;
-                
-                tab.faqs.forEach((faq, faqIndex) => {
-                    html += `
-            <div class="faq-card" style="flex: 1 1 calc(50% - ${spacing/2}px); min-width: 250px; border: ${borderWidth}px solid #e2e8f0; border-radius: ${borderRadius}px; padding: ${spacing}px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                <h3 class="faq-card-question" style="font-size: ${fontSize}px; margin-bottom: ${spacing/2}px; color: ${primaryColor}; margin-top: 0;">
-                    ${escapeHtml(faq.question)}
-                </h3>
-                <div class="faq-card-answer" style="color: #6b7280; font-size: ${fontSize}px;">
-                    ${escapeHtml(faq.answer)}
-                </div>
-            </div>`;
-                });
-                
-                html += `
-        </div>`;
+                content.classList.add('active');
+                if (icon && icon instanceof HTMLElement) icon.style.transform = 'rotate(180deg)'; // Rotate open icon
             }
-            
-            html += `
-    </div>`;
-        });
-        
-        html += `
-</div>
+        }
 
-<script>
-// FAQ Widget JavaScript
-function switchFAQTab(tabIndex) {
-    document.querySelectorAll('.faq-tab').forEach((tab, index) => {
-        if (index === tabIndex) {
-            tab.classList.add('active');
-            tab.style.borderBottomColor = '${primaryColor}';
-            tab.style.color = '${primaryColor}';
-        } else {
-            tab.classList.remove('active');
-            tab.style.borderBottomColor = 'transparent';
-            tab.style.color = 'inherit';
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobile-overlay');
+            const iconEl = document.getElementById('mobile-menu-icon'); // The <i> tag for the icon
+            if (overlay && iconEl) {
+                if (overlay.classList.contains('hidden')) {
+                    overlay.classList.remove('hidden');
+                    iconEl.setAttribute('data-lucide', 'x'); // Change to 'x' icon
+                } else {
+                    overlay.classList.add('hidden');
+                    iconEl.setAttribute('data-lucide', 'menu'); // Change back to 'menu' icon
+                }
+                callLucideCreateIcons(); // Re-render Lucide icons
+            }
         }
-    });
-    document.querySelectorAll('.faq-content').forEach((content, index) => {
-        content.style.display = index === tabIndex ? 'block' : 'none';
-    });
-    
-    // Close all open FAQs when switching tabs
-    document.querySelectorAll('.faq-question').forEach(q => {
-        q.classList.remove('active');
-        q.style.background = '#f8fafc';
-        q.style.color = '#374151';
-    });
-    document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
-    document.querySelectorAll('.faq-icon').forEach(icon => icon.style.transform = 'rotate(0deg)');
-}
 
-function toggleFAQ(tabIndex, faqIndex) {
-    const button = event.target.closest('.faq-question');
-    const answer = document.querySelector(\`.faq-answer[data-tab="\${tabIndex}"][data-faq="\${faqIndex}"]\`);
-    const icon = button.querySelector('.faq-icon');
-    
-    const isActive = button.classList.contains('active');
-    
-    // Close all other FAQs
-    document.querySelectorAll('.faq-question').forEach(q => {
-        q.classList.remove('active');
-        q.style.background = '#f8fafc';
-        q.style.color = '#374151';
-    });
-    document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
-    document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
-    
-    if (!isActive) {
-        button.classList.add('active');
-        button.style.background = '${primaryColor}';
-        button.style.color = 'white';
-        icon.style.transform = 'rotate(180deg)';
-        answer.style.display = 'block';
-    }
-}
-<\/script>
-<!-- End FAQ Widget -->`;
-        
-        return html;
-    }
-    
-    function copyCode() {
-        const code = document.getElementById('code-content').textContent;
-        navigator.clipboard.writeText(code).then(() => {
-            const btn = document.querySelector('.copy-btn');
-            const originalText = btn.textContent;
-            btn.textContent = 'Copiado!';
-            setTimeout(() => {
-                btn.textContent = originalText;
-            }, 2000);
-        }).catch(() => {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = code;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            const btn = document.querySelector('.copy-btn');
-            const originalText = btn.textContent;
-            btn.textContent = 'Copiado!';
-            setTimeout(() => {
-                btn.textContent = originalText;
-            }, 2000);
-        });
-    }
-    
-    function closeCodeModal() {
-        document.getElementById('code-modal').style.display = 'none';
-    }
-    
-    // Utility Functions
-    function getCurrentTab() {
-        return state.tabs.find(tab => tab.id === state.activeTab);
-    }
-    
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-    
-    // Event Listeners
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal')) {
-            e.target.style.display = 'none';
-        }
-    });
-    
-    // Handle Enter key in inputs
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            if (e.target.id === 'faq-question-input') {
-                document.getElementById('faq-answer-input').focus();
-            } else if (e.target.id === 'faq-answer-input' && e.ctrlKey) {
-                saveFAQ();
-            }
-        }
-        
-        if (e.key === 'Escape') {
-            if (document.getElementById('faq-modal').style.display === 'block') {
-                closeFAQModal();
-            }
-            if (document.getElementById('code-modal').style.display === 'block') {
-                closeCodeModal();
-            }
-            if (document.getElementById('customization-sidebar').classList.contains('open')) {
-                toggleCustomization();
-            }
-        }
-    });
-    
-    // Initialize the application
-    init();
-</script>
+        function filterTools() { renderToolsDirectory(); }
 
+        /** @param {'grid' | 'list'} mode */
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            const gridBtn = document.getElementById('grid-view-btn');
+            const listBtn = document.getElementById('list-view-btn');
+            if (gridBtn && listBtn) {
+                if (mode === 'grid') {
+                    gridBtn.classList.add('bg-white', 'dark:bg-slate-600', 'shadow-sm', 'text-pink-700', 'dark:text-pink-400');
+                    gridBtn.classList.remove('text-gray-700', 'dark:text-slate-300'); // Ensure default text colors are removed
+                    listBtn.classList.remove('bg-white', 'dark:bg-slate-600', 'shadow-sm', 'text-pink-700', 'dark:text-pink-400');
+                    listBtn.classList.add('text-gray-700', 'dark:text-slate-300'); // Add default text colors
+                } else { // 'list'
+                    listBtn.classList.add('bg-white', 'dark:bg-slate-600', 'shadow-sm', 'text-pink-700', 'dark:text-pink-400');
+                    listBtn.classList.remove('text-gray-700', 'dark:text-slate-300');
+                    gridBtn.classList.remove('bg-white', 'dark:bg-slate-600', 'shadow-sm', 'text-pink-700', 'dark:text-pink-400');
+                    gridBtn.classList.add('text-gray-700', 'dark:text-slate-300');
+                }
+            }
+            renderToolsDirectory();
+        }
+
+        function handleNotionAccess() {
+            const modal = document.getElementById('notion-modal');
+            const contentEl = document.getElementById('notion-template-content');
+            if (modal && contentEl) {
+                contentEl.textContent = notionTemplateContent; // Already translated string
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeNotionModal() { 
+            const modal = document.getElementById('notion-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function copyTemplateToClipboard() {
+            navigator.clipboard.writeText(notionTemplateContent)
+                .then(() => alert('✅ ¡Plantilla copiada al portapapeles! Ahora pégala en tu página de Notion.'))
+                .catch(() => alert('❌ Falló la copia. Por favor, selecciona y copia el texto manualmente.'));
+        }
+
+        function downloadTemplateAsFile() {
+            const blob = new Blob([notionTemplateContent], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'plantilla-investigacion-ecommerce-notion.md'; // Translated filename
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a); URL.revokeObjectURL(url);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Back to top button
+        globalWindow.onscroll = function() { scrollFunction(); };
+        function scrollFunction() {
+            var backToTopButton = document.getElementById("back-to-top");
+            if (backToTopButton) { // Check if element exists
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    backToTopButton.style.display = "block";
+                } else {
+                    backToTopButton.style.display = "none";
+                }
+            }
+        }
+        function scrollToTop() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script>
 </body>
 </html>
